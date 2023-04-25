@@ -1,34 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import './App.scss'
+import './utilities.scss'
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import Header from './layouts/Header/Header'
+import Home from './pages/Home/Home'
+import { UserContext, UserStorage } from './context/UserContext'
+import Explore from './pages/Explore/Explore'
+import Notifications from './pages/Notifications/Notifications'
+import Sidebar from './layouts/Sidebar/Sidebar'
+import Main from './layouts/Main/Main'
+import Profile from './pages/Profile/Profile'
+import { ModalStorage } from './context/ModalContext'
+import ProtectedRoute from './helper/ProtectedRoute'
+import Login from './pages/Auth/Login'
+import ProtectedComponent from './helper/ProtectedComponent'
+import Register from './pages/Auth/Register'
+import Auth from './pages/Auth/Auth'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+    <>
+      <BrowserRouter>
+        <UserStorage>
+          <ModalStorage>
+            <ProtectedComponent>
+              <Header/>
+            </ProtectedComponent>
+            <div className="container">
+              <Main>
+                <ProtectedComponent>
+                  <Sidebar/>
+                </ProtectedComponent>
+                <Routes>
+                  <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+                  <Route path="/explore" element={<ProtectedRoute><Explore/></ProtectedRoute>} />
+                  <Route path="/notifications" element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
+                  <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+                  <Route path="/auth/*" element={<Auth/>}/>
+                </Routes>
+              </Main>
+            </div>
+          </ModalStorage>
+        </UserStorage>
+      </BrowserRouter>
+    </>
   )
 }
 

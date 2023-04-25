@@ -1,0 +1,66 @@
+@import '../../variables.scss';
+
+.searchBar {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    background-color: $dark;
+    border-radius: 1.6rem;
+    padding: .8rem;
+    min-width:36rem;
+    margin-right: 1.2rem;
+    @media(max-width:$md) {
+        min-width:24rem;
+    }
+    @media(max-width:$sm) {
+        min-width:12rem;
+        max-width: 16rem;
+    }
+    .searchInput {
+        margin-right: .8rem;
+        font-size: 1.6rem;
+        padding:.4rem;
+        background: none;
+        color:$light;
+        -webkit-transition:.2s;
+        -o-transition:.2s;
+        transition:.2s;
+        &::-webkit-input-placeholder {
+            color: $gray;
+        }
+        &::-moz-placeholder {
+            color: $gray;
+        }
+        &:-ms-input-placeholder {
+            color: $gray;
+        }
+        &::-ms-input-placeholder {
+            color: $gray;
+        }
+        &::placeholder {
+            color: $gray;
+        }
+    }
+
+    .searchButton {
+        border: none;
+        background-color: transparent;
+        outline: none;
+        padding:0 1.2rem;
+        cursor: pointer;
+        -webkit-transition:.2s;
+        -o-transition:.2s;
+        transition:.2s;
+
+        svg {
+        color: $light;
+        font-size: 2rem;
+        &:hover {
+            color: $primary;
+        }
+        }
+    }
+}

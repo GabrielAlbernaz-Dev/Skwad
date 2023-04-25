@@ -1,0 +1,84 @@
+@import '../../variables.scss';
+
+.buttonDefault {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    gap:.5rem;
+    position: relative;
+    -webkit-align-items: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    line-height: 2.5rem;
+    font-weight: 600;
+    border-radius: 4px;
+    border: none;
+    color: $light;
+    transition: .2s;
+}
+
+.smallButtonDefault {
+    min-width: 12.4rem;
+    min-height: 2.6rem;
+    font-size: 1.6rem;
+    line-height: 2.5rem;
+    font-weight: 600;
+    padding: .4rem .6rem;
+    min-width: 8rem;
+    transition: .2s;
+}
+
+.mediumButtonDefault {
+    min-width: 16.4rem;
+    min-height: 3.6rem;
+    font-size: 1.8rem;
+    padding: .6rem .8rem;
+    min-width: 10rem;
+}
+
+.smallButtonPrimary {
+    @extend .buttonDefault;
+    @extend .smallButtonDefault;
+    background:$primary;
+    &:hover {
+        background:$primary-hover;
+    }
+}
+
+.smallButton {
+    @extend .buttonDefault;
+    @extend .smallButtonDefault;
+    background: $dark;
+    &:hover {
+        background:$dark-hover;
+    }
+}
+
+.mediumButtonPrimary {
+    @extend .buttonDefault;
+    @extend .mediumButtonDefault;
+    background:$primary;
+    &:hover {
+        background:$primary-hover;
+    }
+}
+
+.mediumButton {
+    @extend .buttonDefault;
+    @extend .mediumButtonDefault;
+    background: $dark;
+    &:hover {
+        background:$dark-hover;
+    }
+}

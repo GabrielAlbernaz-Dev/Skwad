@@ -1,0 +1,54 @@
+@import './variables.scss';
+
+.container {
+    max-width: 130rem;
+    padding: 0 1rem;
+    margin: 0 auto;
+}
+
+.navItemActive {
+    color: $primary;
+    svg {
+        fill: $primary!important;
+    }
+}
+
+.flexContainerRow {
+    display:flex;
+    gap:2rem;
+    align-items: center;
+}
+
+.tabItemActive {
+    color: $primary!important;
+    border-bottom: 2px solid $primary;
+}
+
+.scrollbarPrimary {
+    &::-webkit-scrollbar {
+        width: .65rem;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: $primary;
+        border-radius: 1rem;
+    }
+}
+
+.contentContainer {
+    width: calc($container - ($mainSidebarWidth + 5px));
+    padding: 0 1rem;
+    padding-left: 6rem;
+    @media(max-width:$md) {
+        width:calc($container - ($mainSidebarWidthMd + 5px));
+        padding-left: 4rem;
+    }
+    @media(max-width:$sm) {
+        width:calc($container - ($mainSidebarWidthSm + 5px));
+    }
+}
+

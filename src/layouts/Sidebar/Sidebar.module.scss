@@ -1,0 +1,48 @@
+@import '../../variables.scss';
+
+.mainSidebarContainer {
+    position:relative;
+    width:$mainSidebarWidth;
+    flex:0 0 $mainSidebarWidth;
+    @media(max-width:$md) {
+        flex:0 0 $mainSidebarWidthMd;
+        width:$mainSidebarWidthMd;
+    }
+    @media(max-width:$sm) {
+        flex:0 0 $mainSidebarWidthSm;
+        width:$mainSidebarWidthSm;
+    }
+    .mainSidebar {
+        overflow-x: hidden;
+        overflow-y: auto;
+        overscroll-behavior-y: contain;
+        perspective: 1px;
+        transform-style: preserve-3d;
+        perspective-origin: right top;
+        top: $marginTopContent;
+        bottom: 0;
+        width: $mainSidebarWidth;
+        position: fixed;
+        z-index: 99;
+        @media(max-width:$md) {
+            width:$mainSidebarWidthMd;
+        }
+        @media(max-width:$sm) {
+            width:$mainSidebarWidthSm;
+        }
+
+        > * {
+            position: relative;
+        }
+        > *:not(:nth-child(1))::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.3);
+            transform: scaleY(0.5);
+        }
+    }
+}

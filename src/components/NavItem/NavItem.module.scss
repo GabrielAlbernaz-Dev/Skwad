@@ -1,0 +1,59 @@
+@import '../../variables.scss';
+
+.navItemContainer {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    font-size: 2.2rem;
+    color: $light;
+    -webkit-transition: .2s;
+    -o-transition: .2s;
+    transition: .2s;
+    margin-bottom: 1rem;
+    @media(max-width:$sm) {
+        justify-content: center;
+    }
+    .content {
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        padding: .8rem 1.4rem;
+        gap: 2rem;
+        svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            fill: $light;
+            @media(max-width:$sm) {
+                width: 2.8rem;
+                height: 2.8rem;
+            }
+        }
+        p {
+            @media(max-width:$sm) {
+                display:none;
+            }
+        }
+    }
+
+    &:hover {
+        color: $primary;
+        background: $light-hover;
+        svg {
+            fill: $primary;
+        }
+    }
+}
+
+.navItemContainer[aria-current="page"] {
+    color: $primary;
+    background: $light-hover;
+    svg {
+        fill: $primary;
+    }
+}

@@ -1,0 +1,9 @@
+@import '../../variables.scss';
+
+.actionIconContainer {
+    font-size: 3rem;
+    font-weight: 600;
+    color: $light;
+    display: flex;
+    align-items: center;
+}

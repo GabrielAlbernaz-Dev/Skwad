@@ -1,0 +1,96 @@
+@import '../../variables.scss';
+
+.followListContainer {
+    padding: 1.6rem 0;
+    color: $light;
+    font-size: 14px;
+    line-height: 20px;
+    position: relative;
+
+    .followListTitle {
+        padding: 0 .8rem;
+        margin-bottom: .8rem;
+        font-weight: 600;
+        font-size: 1.6rem;
+        line-height: 2rem;
+        @media(max-width:$sm) {
+            text-align: center;
+        }
+    }
+
+    ul {
+        .followListItem {
+            padding: 1.2rem .8rem;
+            gap: 1rem;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+            position: relative;
+            border-radius: 4px;
+            transition: .2s;
+            @media(max-width:$sm) {
+                justify-content: center;
+            }
+            .followListAvatar {
+                position: relative;
+                display: -webkit-box;
+                display: -webkit-flex;
+                display: -ms-flexbox;
+                display: flex;
+                -webkit-align-items: center;
+                -webkit-box-align: center;
+                -ms-flex-align: center;
+                align-items: center;
+                -webkit-box-pack: center;
+                -ms-flex-pack: center;
+                -webkit-justify-content: center;
+                justify-content: center;
+                width: 4rem;
+                height: 4rem;
+                border-radius: 50%;
+                margin-right: 1.2rem;
+                img {
+                    display: block;
+                    width: 100%;
+                    border-radius: 50%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+            .followListText {
+                -webkit-box-flex: 1;
+                flex-grow: 1;
+                height: 3.2rem;
+                @media(max-width:$sm) {
+                    display:none;
+                }
+                .followListTextProfile {
+                    color: $light;
+                    font-weight: 700;
+                    font-size: 1.6rem;
+                    line-height: 2.2rem;
+                    margin-top: -2px;
+                    max-width: 26rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    transition: .2s;
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+
+                .followListTextBio {
+                    color: $light;
+                    font-weight: 400;
+                    font-size: 1.2rem;
+                    line-height: 1.5rem;
+                    max-width: 26rem;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+        }
+    }
+}
