@@ -26,7 +26,7 @@ function App() {
               <Header/>
             </ProtectedComponent>
             <div className="container">
-              <Main>
+              <Main style={{flexDirection:'column'}}>
                 <ProtectedComponent>
                   <Sidebar/>
                 </ProtectedComponent>

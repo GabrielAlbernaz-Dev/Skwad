@@ -18,6 +18,9 @@
     @media(max-width:$md) {
         flex-direction: column-reverse;
     }
+    @media(max-width:$sm) {
+        margin-bottom: 3rem;
+    }
     .profileHeaderInfo {
         display: -webkit-box;
         display: -ms-flexbox;
@@ -63,10 +66,16 @@
             .profileHeaderName {
                 font-size: 2.8rem;
                 color: $light;
+                @media(max-width:$sm) {
+                    font-size: 2.2rem;
+                }
             }
             .profileHeaderUsername {
                 font-size: 1.8rem;
                 color: $gray;
+                @media(max-width:$sm) {
+                    font-size: 1.5rem;
+                }
             }
 
             .profileHeaderUserData {
@@ -78,6 +87,9 @@
                         align-items: center;
                 gap: 2rem;
                 margin-top: 2rem;
+                @media(max-width:$md) {
+                    flex-wrap: wrap;
+                }
                 .profileHeaderUserDataItem {
                     display: -webkit-box;
                     display: -ms-flexbox;
@@ -87,6 +99,9 @@
                         -ms-flex-align: center;
                             align-items: center;
                     font-size: 1.8rem;
+                    @media(max-width:$sm) {
+                        font-size: 1.5rem;
+                    }
                     .profileHeaderUserDataItemNumber {
                         color: $light;
                         font-weight: 700;
@@ -123,6 +138,7 @@
         @media(max-width:$md) {
             -ms-flex-item-align: flex-end;
             align-self: flex-end;
+            margin-bottom: 4rem;
         }
         .profileHeaderShare {
             font-size: 2rem;

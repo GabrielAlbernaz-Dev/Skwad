@@ -39,6 +39,9 @@
                 line-height: 100%;
                 color: $light;
                 background: $dark;
+                @media(max-width:$sm) {
+                    padding: 1rem;
+                }
                 &::-webkit-input-placeholder {
                     color: $gray;
                 }

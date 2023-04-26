@@ -45,6 +45,10 @@
     font-size: 1.8rem;
     padding: .6rem .8rem;
     min-width: 10rem;
+    @media(max-width:$sm) {
+        font-size: 1.5rem;
+        padding: .4rem .6rem;
+    }
 }
 
 .smallButtonPrimary {

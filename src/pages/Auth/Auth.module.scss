@@ -1,0 +1,65 @@
+@import '../../variables.scss';
+
+.authHeader {
+    padding:1rem;
+    margin-bottom:2rem;
+    text-align: center;
+}
+
+.authForm {
+    display: flex;
+    gap: 2.5rem;
+    flex-direction: column;
+}
+
+.authRedirectLink {
+    font-size: 1.6rem;
+    color: $gray;
+    transition:.2s;
+    &:hover {
+        color: $primary;
+        text-decoration: underline;
+    }
+}
+
+.authFormContainer {
+    display: flex;
+    gap: 8rem;
+    align-items: center;
+    width: 100%;
+    form,
+    img {
+        flex: 1;
+    }
+    @media(max-width:$md) {
+        flex-direction: column;
+        gap: 4rem;
+        padding: 0 2rem;
+    }
+
+    .authTextContainer {
+        margin-bottom: 2rem;
+    }
+
+    .authFormTitle {
+        font-size: 4.5rem;
+        color: $light;
+        @media(max-width:$sm) {
+            font-size: 3.6rem;
+        }
+    }
+
+    .authFormSubTitle {
+        font-size: 1.8rem;
+        color: $gray;
+        @media(max-width:$sm) {
+            font-size: 1.4rem;
+        }
+    }
+}
+
+.authLoginImage {
+    @media(max-width:$sm) {
+        max-width: 30rem;
+    }
+}
