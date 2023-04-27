@@ -1,9 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './Post.module.scss'
 import { Link } from 'react-router-dom'
 import { FaHeart,FaComment,FaShare } from 'react-icons/fa';
+import Modal from '../Modal/Modal';
+import { ModalContext } from '../../context/ModalContext';
 
 const PostItem = ({title,text,src,time,profileId}) => {
+  const {showModal,setShowModal} = useContext(ModalContext);
+
+  function handleModal() {
+    setShowModal(!showModal);
+  }
 
   if (!(title && profileId) ?? !src) {
     return null;
@@ -27,9 +34,12 @@ const PostItem = ({title,text,src,time,profileId}) => {
         </div>
         <div className={styles.postActionOptions}>
           <i><FaHeart/></i>
-          <i><FaComment/></i>
-          <i><FaShare/></i>
+          <i onClick={handleModal}><FaComment/></i>
+          <i onClick={handleModal}><FaShare/></i>
         </div>
+        <Modal>
+          <h2 style={{color:'white'}}>Teste</h2>
+        </Modal>
     </article>
   )
 }

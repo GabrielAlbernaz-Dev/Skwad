@@ -9,6 +9,7 @@ import Form from '../../components/Form/Form';
 import styles from './Auth.module.scss';
 import AuthInput from '../../components/Form/AuthInput'
 import { Link } from 'react-router-dom'
+import AuthFormText from '../../components/Form/AuthFormText'
 
 const Login = () => {
   const {setAuth} = useContext(UserContext);
@@ -19,11 +20,14 @@ const Login = () => {
   return (
     <section className={styles.authFormContainer}>
       <Form className={styles.authForm}>
-        <div className={styles.authTextContainer}>
-          <h2 className={styles.authFormTitle}>Sign In with your account</h2>
-          <h4 className={styles.authFormSubTitle}>Lorem ipsum dolor sit, amet consectetur dolor sit, amet.</h4>
-        </div>
-        <AuthInput type="text" placeholder="Email" icon={<AiOutlineMail/>}/>
+        <AuthFormText
+         title="Sign In with your account"
+         subtitle="Lorem ipsum dolor sit, amet consectetur dolor sit, amet."
+         containerStyle={styles.authTextContainer}
+         titleStyle={styles.authFormTitle}
+         subtitleStyle={styles.authFormSubTitle}
+        />
+        <AuthInput type="email" placeholder="Email" icon={<AiOutlineMail/>}/>
         <AuthInput type="password" placeholder="Password" icon={<BsKey/>}/>
         <MediumButton onClick={handleLogin} primary={true} text="Login"/>
         <Link className={styles.authRedirectLink} to="/auth/register">You does not have an account? Register here</Link>
