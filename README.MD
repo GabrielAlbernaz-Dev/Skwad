@@ -1,2 +1,1 @@
-## Ideias Futuras para o projeto
-# Vai conter uma trending top5 ao lado direito, opção para seguir perfis em baixo da nav, em baixo do top5 terá um seção de termos, tipo um footer.# Criar caixa de componente de post, depois pensar nas telas do app.
+
