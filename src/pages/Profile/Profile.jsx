@@ -6,6 +6,7 @@ import ProfileTabs from '../../components/ProfileTabs/ProfileTabs'
 import { useState } from 'react'
 import PostList from '../../components/Post/PostList'
 import { useEffect } from 'react'
+import Head from '../../helper/Head'
 
 const Profile = () => {
   const [activeTabs,setActiveTabs] = useState('posts');
@@ -89,11 +90,14 @@ const Profile = () => {
   }
 
   return (
-    <ContentContainer>
-      <ProfileHeader/>
-      <ProfileTabs active={activeTabs} setActive={setActiveTabs}/>
-      <PostList data={data[activeTabs]}/>
-    </ContentContainer>
+    <>
+      <Head title="Profile" description="Profile page"/>
+      <ContentContainer>
+        <ProfileHeader/>
+        <ProfileTabs active={activeTabs} setActive={setActiveTabs}/>
+        <PostList data={data[activeTabs]}/>
+      </ContentContainer>
+    </>
   )
 }
 

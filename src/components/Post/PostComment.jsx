@@ -4,18 +4,16 @@ import { Link } from 'react-router-dom'
 import { FaHeart,FaComment,FaShare } from 'react-icons/fa';
 import Modal from '../Modal/Modal';
 import { ModalContext } from '../../context/ModalContext';
-import { useEffect } from 'react';
-import PostList from './PostList';
 
-const PostItem = ({title,text,src,time,profileId}) => {
-  const {modalSettings} = useContext(ModalContext);
+const PostComment = ({title,text,src,time,profileId}) => {
 
-  if (!(title && profileId) ?? !src) {
-    return null;
-  }
+
+    if (!(title && profileId) ?? !src) {
+        return null;
+    }
 
   return (
-    <article className={styles.postItemContainer}>
+    <article className={`${styles.postItemContainer} flexColumn gap-1`}>
         <Link className={styles.postProfilePicture}>
           <img src={src} alt={src ? src.slice(0,4) : ''} />
         </Link>
@@ -30,13 +28,13 @@ const PostItem = ({title,text,src,time,profileId}) => {
             {text && text}
           </p>
         </div>
-        <div className={styles.postActionOptions}>
+        <div className={`${styles.postActionOptions} flexRow gap-2 mt-1`}>
           <i><FaHeart/></i>
-          <i onClick={modalSettings.handleModal} data-modal-component="comment"><FaComment/></i>
-          <i onClick={modalSettings.handleModal} data-modal-component="reply"><FaShare/></i>
+          <i><FaComment/></i>
+          <i><FaShare/></i>
         </div>
     </article>
   )
 }
 
-export default PostItem
+export default PostComment

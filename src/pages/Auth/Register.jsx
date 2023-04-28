@@ -7,11 +7,13 @@ import styles from './Auth.module.scss';
 import AuthInput from '../../components/Form/AuthInput'
 import { Link, useNavigate } from 'react-router-dom'
 import AuthFormText from '../../components/Form/AuthFormText'
+import Head from '../../helper/Head';
 
 const Register = () => {
   const navigate = useNavigate();
   return (
     <section className={`${styles.authFormContainer} ${styles.authRegisterContainerStyles}`}>
+      <Head title="Register" description="Register page"/>
       <Form className={`${styles.authForm} ${`max-form`}`}>
         <AuthFormText
          title="Create your account and have fun with skwad!"

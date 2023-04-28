@@ -10,6 +10,7 @@ import styles from './Auth.module.scss';
 import AuthInput from '../../components/Form/AuthInput'
 import { Link } from 'react-router-dom'
 import AuthFormText from '../../components/Form/AuthFormText'
+import Head from '../../helper/Head'
 
 const Login = () => {
   const {setAuth} = useContext(UserContext);
@@ -19,6 +20,7 @@ const Login = () => {
 
   return (
     <section className={styles.authFormContainer}>
+      <Head title="Login" description="Login page"/>
       <Form className={styles.authForm}>
         <AuthFormText
          title="Sign In with your account"

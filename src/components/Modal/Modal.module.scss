@@ -18,10 +18,14 @@
             align-items: center;
     background: rgba(0,0,0,.2);
     .modalContent {
-        max-width: 30rem;
+        min-width: 25rem;
+        max-width: 70rem;
+        max-height: 90vh;
         padding: 2rem;
         background:$dark;
         color: $light;
         border-radius: 8px;
+        overflow-y: auto;
+        margin: 4rem 0;
     }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import ContentContainer from '../../layouts/ContentContainer/ContentContainer'
 import PostItem from '../../components/Post/PostItem'
 import PostList from '../../components/Post/PostList'
+import Head from '../../helper/Head'
 
 const Notifications = () => {
   const postsDataTest = [
@@ -28,9 +29,12 @@ const Notifications = () => {
     },
   ]
   return (
+    <>
+    <Head title="Notifications" description="Profile notifications"/>
     <ContentContainer>
       <PostList data={postsDataTest} />
     </ContentContainer>
+    </>
   )
 }
 

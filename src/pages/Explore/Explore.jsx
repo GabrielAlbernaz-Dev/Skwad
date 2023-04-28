@@ -1,6 +1,7 @@
 import React from 'react'
 import ContentContainer from '../../layouts/ContentContainer/ContentContainer'
 import ListExplorer from '../../components/ListExplorer/ListExplorer'
+import Head from '../../helper/Head'
 
 const Explore = () => {
   const exploreItems = [
@@ -13,9 +14,12 @@ const Explore = () => {
   ] 
 
   return (
-    <ContentContainer>
-      <ListExplorer items={exploreItems}/>
-    </ContentContainer>
+    <>
+      <Head title="Explore" description="Explore page"/>
+      <ContentContainer>
+        <ListExplorer items={exploreItems}/>
+      </ContentContainer>    
+    </>
   )
 }
 
