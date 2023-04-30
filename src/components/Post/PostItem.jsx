@@ -2,16 +2,17 @@ import React, { useContext } from 'react'
 import styles from './Post.module.scss'
 import { Link } from 'react-router-dom'
 import { FaHeart,FaComment,FaShare } from 'react-icons/fa';
-import Modal from '../Modal/Modal';
 import { ModalContext } from '../../context/ModalContext';
-import { useEffect } from 'react';
-import PostList from './PostList';
 
 const PostItem = ({title,text,src,time,profileId}) => {
   const {modalSettings} = useContext(ModalContext);
 
   if (!(title && profileId) ?? !src) {
     return null;
+  }
+
+  function handlePrimary({currentTarget}) {
+    currentTarget.classList.toggle('primary')
   }
 
   return (
@@ -31,7 +32,7 @@ const PostItem = ({title,text,src,time,profileId}) => {
           </p>
         </div>
         <div className={styles.postActionOptions}>
-          <i><FaHeart/></i>
+          <i onClick={handlePrimary}><FaHeart/></i>
           <i onClick={modalSettings.handleModal} data-modal-component="comment"><FaComment/></i>
           <i onClick={modalSettings.handleModal} data-modal-component="reply"><FaShare/></i>
         </div>

@@ -3,11 +3,20 @@ import Modal from '../components/Modal/Modal'
 import { ModalContext } from '../context/ModalContext'
 import PostList from '../components/Post/PostList'
 import {postsDataTest} from '../data/PostsMock'
+import Input from '../components/Form/Input'
+import EditProfile from '../layouts/Profile/EditProfile'
+import PostShare from '../components/Post/PostShare'
 
-const PostActionModal = () => {
+const ActionModal = () => {
   const { modalComponent } = useContext(ModalContext);
 
   switch (modalComponent) {
+    case 'edit-profile':
+      return (
+        <Modal>
+          <EditProfile/>
+        </Modal>
+      );
     case 'comment':
       return (
         <Modal>
@@ -17,7 +26,7 @@ const PostActionModal = () => {
     case 'reply':
       return (
         <Modal>
-          <h2 style={{color:'white'}}>Reply</h2>
+          <PostShare/>
         </Modal>
       );
     default:
@@ -25,4 +34,4 @@ const PostActionModal = () => {
   }
 }
 
-export default PostActionModal;
+export default ActionModal;

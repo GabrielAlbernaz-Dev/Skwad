@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import SmallButton from '../Button/SmallButton'
 import { FaImage } from 'react-icons/fa';
 import { BsEmojiSmileFill } from 'react-icons/bs';
+import PostInputFile from './PostInputFile';
+import PostEmoji from './PostEmoji';
 
 const PostBox = ({src,alt,placeholder}) => {  
   const maxCharacters = 300;
@@ -43,8 +45,8 @@ const PostBox = ({src,alt,placeholder}) => {
         </div>
         <div className={styles.postBoxActionContainer}>
             <div className={styles.postBoxActions}>
-                <i><FaImage/></i>
-                <i><BsEmojiSmileFill/></i>
+                <PostInputFile/>
+                <PostEmoji/>
             </div>
             <div className={styles.postFieldSection}>
                 <p className={styles.counterFieldLength}>{postFieldValue ? postFieldValue.length : 0}/<span>{maxCharacters}</span></p>

@@ -34,3 +34,15 @@
     }
     
 }
+
+.controlDefault {
+    background: transparent;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    border: 1px solid $gray;
+    font-size: 1.65rem;
+    color: $light;
+    &:focus {
+        border-color: $primary;
+    }
+}

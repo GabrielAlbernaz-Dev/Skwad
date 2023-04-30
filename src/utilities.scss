@@ -1,5 +1,9 @@
 @import './variables.scss';
 
+.primary {
+    color: $primary;
+}
+
 .container {
     max-width: 130rem;
     padding: 0 1rem;
@@ -39,6 +43,10 @@
 
 .mt-1 {
     margin-top: 1rem;
+}
+
+.w-100 {
+    width: 100%;
 }
 
 .tabItemActive {
@@ -83,6 +91,18 @@
     max-width: 70rem;
 }
 
+.border-gray {
+    border: 1px solid $gray;
+}
+
+
+  
+  
+  
+  
+  
+  
+  
 
 
 

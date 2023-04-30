@@ -1,0 +1,22 @@
+@import '../../variables.scss';
+
+.profileEditContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    align-items: center;
+    width: 100%;
+    .profileEditTitle {
+        font-size: 2.8rem;
+        color: $light;
+        text-align: right;
+    }
+    .profileSubmitContainer {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        * {
+            flex: 1;
+        }
+    }
+}

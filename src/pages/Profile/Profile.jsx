@@ -7,6 +7,7 @@ import { useState } from 'react'
 import PostList from '../../components/Post/PostList'
 import { useEffect } from 'react'
 import Head from '../../helper/Head'
+import profilePhoto from '../../assets/profile-photo.jpeg'
 
 const Profile = () => {
   const [activeTabs,setActiveTabs] = useState('posts');
@@ -50,35 +51,28 @@ const Profile = () => {
       title:'zzzzz',
       text:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsa at repudiandae tenetur TSC'
     },
-    {
-      profileId:'@harrypotterinfos',
-      src:'https://s2.glbimg.com/Z4c0dLtiMbmfP7hxpRKKMKjITSM=/0x0:1318x1021/600x0/smart/filters:gifv():strip_icc()/i.s3.glbimg.com/v1/AUTH_bc8228b6673f488aa253bbcb03c80ec5/internal_photos/bs/2021/m/g/1KGc3MT5A5wRCv3okBaw/mwzera-champions.jpg',
-      time:'11h',
-      title:'KKK',
-      text:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. @Gabriel'
-    },
   ]
 
   const comments  = [
     {
-      profileId:'@harrypotterinfos',
-      src:'https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1692535679086598~c5_100x100.jpeg?x-expires=1681354800&x-signature=eG6E5Sx7iZZcCCYHcnh2suPGdYA%3D',
+      profileId:'@p0nzulol',
+      src:profilePhoto,
       time:'15h',
-      title:'KKsdfsdfsdfsdK',
+      title:'Gabriel Albernaz',
       text:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. @Gabriel'
     },
     {
-      profileId:'@harrypotterinfos',
-      src:'https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1692535679086598~c5_100x100.jpeg?x-expires=1681354800&x-signature=eG6E5Sx7iZZcCCYHcnh2suPGdYA%3D',
+      profileId:'@p0nzulol',
+      src:profilePhoto,
       time:'11h',
-      title:'KsdfdsKK',
+      title:'Gabriel Albernaz',
       text:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. @Gabriel'
     },
     {
-      profileId:'@harrypotterinfos',
-      src:'https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1692535679086598~c5_100x100.jpeg?x-expires=1681354800&x-signature=eG6E5Sx7iZZcCCYHcnh2suPGdYA%3D',
+      profileId:'@p0nzulol',
+      src:profilePhoto,
       time:'21h',
-      title:'KKKzzzzzzz',
+      title:'Gabriel Albernaz',
       text:'Lorem ipsum dolor, sit amet consectetur adipisicing elit. @Gabriel'
     },
   ]

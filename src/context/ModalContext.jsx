@@ -13,6 +13,11 @@ export const ModalStorage = ({children}) => {
       setModalComponent(null);
       setShowModal(!showModal);
       setModalComponent(currentTarget.dataset.modalComponent)
+    },
+
+    closeModal: function({currentTarget}) {
+      setModalComponent(null);
+      setShowModal(false);
     }
   }
 

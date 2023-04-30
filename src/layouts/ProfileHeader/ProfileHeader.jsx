@@ -1,17 +1,16 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './ProfileHeader.module.scss'
-import { Link } from 'react-router-dom'
-import SmallButton from '../../components/Button/SmallButton'
 import MediumButton from '../../components/Button/MediumButton'
-import { FaRegEdit, FaShare } from 'react-icons/fa'
-import { TbShare3 } from 'react-icons/tb'
+import { ModalContext } from '../../context/ModalContext'
+import profilePhoto from '../../assets/profile-photo.jpeg'
 
 const ProfileHeader = () => {
+  const {modalSettings} = useContext(ModalContext);
   return (
     <header className={styles.profileHeader}>
         <section className={styles.profileHeaderInfo}>
             <div className={styles.profileHeaderPhotoContainer}>
-                <img src="https://p16-sign-va.tiktokcdn.com/musically-maliva-obj/1692535679086598~c5_100x100.jpeg?x-expires=1681354800&x-signature=eG6E5Sx7iZZcCCYHcnh2suPGdYA%3D" alt="" />
+                <img src={profilePhoto} alt="" />
             </div>
             <div className={styles.profileHeaderContent}>
                 <h2 className={styles.profileHeaderName}>Gabriel Albernaz</h2>
@@ -22,11 +21,11 @@ const ProfileHeader = () => {
                         <p className={styles.profileHeaderUserDataItemText}>Following</p>
                     </div>
                     <div className={styles.profileHeaderUserDataItem}>
-                        <span className={styles.profileHeaderUserDataItemNumber}>20</span>
+                        <span className={styles.profileHeaderUserDataItemNumber}>52</span>
                         <p className={styles.profileHeaderUserDataItemText}>Followers</p>
                     </div>
                     <div className={styles.profileHeaderUserDataItem}>
-                        <span className={styles.profileHeaderUserDataItemNumber}>199</span>
+                        <span className={styles.profileHeaderUserDataItemNumber}>2</span>
                         <p className={styles.profileHeaderUserDataItemText}>Likes</p>
                     </div>
                 </div>
@@ -34,7 +33,7 @@ const ProfileHeader = () => {
             </div>
         </section>
         <section className={styles.profileHeaderActions}>
-            <MediumButton primary={true} text="Edit Profile"/>
+            <MediumButton onClick={modalSettings.handleModal} data-modal-component="edit-profile" primary={true} text="Edit Profile"/>
         </section>
     </header>
   )
