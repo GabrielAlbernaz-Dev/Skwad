@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import styles from './Modal.module.scss'
 import { ModalContext } from '../../context/ModalContext';
-import PostList from '../Post/PostList';
+import CloseButtonModal from './CloseButtonModal';
 
 const Modal = ({state,children}) => {
   const {showModal,setShowModal} = useContext(ModalContext);
@@ -17,6 +17,7 @@ const Modal = ({state,children}) => {
     <>
     {showModal && (<div onClick={handleCloseModal} className={styles.modal}>
         <div className={`${styles.modalContent} scrollbarPrimary`}>
+            <CloseButtonModal handleClose={() => setShowModal(false)}/>
             {children}
         </div>
     </div>)}
