@@ -1,8 +1,8 @@
 @import '../../variables.scss';
 
 .loading {
-    border: 4px solid rgba(255, 59, 92, 0.2); /* cor de fundo do spinner */
-    border-top-color: $primary; /* cor do spinner */
+    border: 4px solid rgba(255, 59, 92, 0.2); 
+    border-top-color: $primary;
     border-radius: 50%;
     width: 2.3rem;
     height: 2.3rem;

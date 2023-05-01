@@ -54,6 +54,9 @@
                         align-items: center;
                 font-size: 1.6rem;
                 color:$gray;
+                &:hover {
+                    color: $primary;
+                }
             }
         }
     }

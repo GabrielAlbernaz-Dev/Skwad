@@ -148,7 +148,9 @@
                         width: 18rem;
                     }
                     @media screen and (max-width:$sm) {
-                        width: 15rem;
+                        max-height: 35rem;
+                        left: -2rem;
+                        top: 3rem;
                     }
                     .postEmojiList {
                         display: flex;
