@@ -1,59 +1,67 @@
-import { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { BsEmojiSmileFill } from 'react-icons/bs';
-import styles from './Post.module.scss'
-import useFetch from '../../hooks/useFetch';
+import { AiOutlineClose,AiFillCloseCircle } from 'react-icons/ai';
+import styles from './Post.module.scss';
 import Loading from '../Loading/Loading';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 
-const PostEmoji = () => {
+const PostEmoji = ({ onEmojiClick }) => {
   const [showBox, setShowBox] = useState(false);
-  const [emojiItens,setEmojiItens] = useState(null);
   const boxRef = useRef(null);
-  const {data,loading,error,request} = useFetch();
+  const { data: emojiItems, isLoading } = useQuery(['emojis'], getEmojis, {
+    staleTime: Infinity,
+  });
 
   async function getEmojis() {
-      const {response,json} = await request(import.meta.env.VITE_EMOJI_API_URL);
-      setEmojiItens(json);
-  }
-
-  function handleEmojiClick() {
-    setShowBox(true)
-    if(!emojiItens || emojiItens.length < 1) {
-      getEmojis();
+    if (!emojiItems) {
+      const response = await axios.get(import.meta.env.VITE_EMOJI_API_URL);
+      return response.data;
     }
+    return null;
   }
 
-  function handleClickOutside() {
-    if (boxRef.current && !boxRef.current.contains(event.target)) {
-        setShowBox(false);
-      }
+  function handleEmojiClickContainer() {
+    setShowBox((prevShowBox) => !prevShowBox)
   }
 
-  useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
+  function handleEmojiClick(e) {
+    const emoji = e.currentTarget.innerText;
+    onEmojiClick(emoji);
+    setShowBox(false);
+  }
 
   return (
     <>
-      <div className={styles.postEmojiContainer} onClick={handleEmojiClick}>
-        <i><BsEmojiSmileFill /></i>
+      <div className={styles.postEmojiContainer} onClick={handleEmojiClickContainer}>
+        <i>
+          <BsEmojiSmileFill />
+        </i>
         {showBox && (
-        <div ref={boxRef} className={`${styles.postEmojiBox} scrollbarPrimary`}>
-          <ul className={styles.postEmojiList}>
-            <Loading loading={loading}/>
-            {(Array.isArray(emojiItens) && emojiItens.length > 0) && emojiItens.map(emoji => (
-                <li onClick={(e)=> console.log(e.currentTarget.innerText) } key={emoji.slug} title={emoji.slug} data-emoji-name={emoji.slug}>
+          <div ref={boxRef} className={`${styles.postEmojiBox} scrollbarPrimary`}>
+            <div className={styles.postEmojiBoxCloseContainer}>
+              <span className={styles.postEmojiBoxClose}><AiOutlineClose/></span>
+            </div>
+            <ul className={styles.postEmojiList}>
+              <Loading loading={isLoading} />
+              {Array.isArray(emojiItems) &&
+                emojiItems.length > 0 &&
+                emojiItems.map((emoji) => (
+                  <li
+                    onClick={handleEmojiClick}
+                    key={emoji.slug}
+                    title={emoji.slug}
+                    data-emoji-name={emoji.slug}
+                  >
                     {emoji.character}
-                </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default PostEmoji
+export default PostEmoji;

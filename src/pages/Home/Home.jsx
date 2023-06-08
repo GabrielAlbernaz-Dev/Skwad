@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PostItem from '../../components/Post/PostItem'
 import ContentContainer from '../../layouts/ContentContainer/ContentContainer'
 import PostBox from '../../components/Post/PostBox'
 import PostList from '../../components/Post/PostList'
 import Head from '../../helper/Head'
+import { UserContext } from '../../context/UserContext'
 
 const Home = () => {
   const postsDataTest = [

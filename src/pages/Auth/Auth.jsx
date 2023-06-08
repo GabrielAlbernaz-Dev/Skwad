@@ -9,6 +9,7 @@ import styles from './Auth.module.scss';
 const Auth = () => {
   const {auth} = useContext(UserContext);
   if(auth) return <Navigate to="/" />;
+  
   return (
     <>
       <header className={styles.authHeader}><Brand/></header>

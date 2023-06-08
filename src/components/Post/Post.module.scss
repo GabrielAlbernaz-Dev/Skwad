@@ -152,6 +152,23 @@
                         left: -2rem;
                         top: 3rem;
                     }
+                    .postEmojiBoxCloseContainer {
+                        width: 100%;
+                        display: flex;
+                        justify-content: flex-end;
+                        .postEmojiBoxClose {
+                            display: inline-block;
+                            font-size: 2.4rem;
+                            font-weight: 700;
+                            color: $primary;
+                            margin-bottom: 1rem;
+                            cursor: pointer;
+                            transition: .2s;
+                            &:hover {
+                                transform: scale(1.03);
+                            }
+                        }
+                    }
                     .postEmojiList {
                         display: flex;
                         flex-wrap: wrap;

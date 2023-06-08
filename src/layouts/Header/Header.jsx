@@ -13,10 +13,10 @@ import Modal from '../../components/Modal/Modal'
 import { UserContext } from '../../context/UserContext'
 
 const Header = () => {
-  const {auth,setAuth} = useContext(UserContext);
+  const {logout} = useContext(UserContext);
 
   function handleLogout() {
-    setAuth(false);
+    logout();
   }
 
   return (

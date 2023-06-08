@@ -3,26 +3,25 @@ import './utilities.scss'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import Header from './layouts/Header/Header'
 import Home from './pages/Home/Home'
-import { UserContext, UserStorage } from './context/UserContext'
+import {  UserContext, UserStorage } from './context/UserContext'
 import Explore from './pages/Explore/Explore'
 import Notifications from './pages/Notifications/Notifications'
 import Sidebar from './layouts/Sidebar/Sidebar'
 import Main from './layouts/Main/Main'
 import Profile from './pages/Profile/Profile'
-import { ModalContext, ModalStorage } from './context/ModalContext'
+import {  ModalStorage } from './context/ModalContext'
 import ProtectedRoute from './helper/ProtectedRoute'
-import Login from './pages/Auth/Login'
 import ProtectedComponent from './helper/ProtectedComponent'
-import Register from './pages/Auth/Register'
 import Auth from './pages/Auth/Auth'
-import Modal from './components/Modal/Modal'
 import { useContext } from 'react'
 import ActionModal from './helper/ActionModal'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient();
 
 function App() {
-
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <UserStorage>
           <ModalStorage>
@@ -47,7 +46,7 @@ function App() {
           </ModalStorage>
         </UserStorage>
       </BrowserRouter>
-    </>
+    </QueryClientProvider>
   )
 }
 
