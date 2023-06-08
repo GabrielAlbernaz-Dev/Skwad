@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import AuthFormText from './AuthFormText'
 import MediumButton from '../Button/MediumButton'
 import styles from './Form.module.scss'
@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { DevTool } from '@hookform/devtools';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import '../../utilities.scss';
 import { UserContext } from '../../context/UserContext';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
