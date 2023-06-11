@@ -33,6 +33,12 @@
     align-items: center;
 }
 
+.flex-start {
+    -webkit-box-align: flex-start!important;
+    -ms-flex-align: flex-start!important;
+    align-items: flex-start!important;
+}
+
 .gap-1 {
     gap: 1rem!important;
 }
@@ -100,6 +106,18 @@
     margin: 2rem 0;
     color: $primary;
     font-weight:600; 
+}
+
+.flex-row-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.redirectTitle {
+    font-size: 4rem;
+    text-align: center;
+    color: $light;
 }
 
   

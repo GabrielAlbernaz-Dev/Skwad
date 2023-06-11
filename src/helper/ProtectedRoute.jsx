@@ -4,8 +4,12 @@ import { UserContext } from '../context/UserContext';
 
 const ProtectedRoute = ({children}) => {
   const {auth} = useContext(UserContext);
+  if(auth === false) {
+    <Navigate to="/auth/login"/>
+    return <h2 className="redirectTitle">Redirect...</h2>;
+  }
   return (
-    auth ? children : <Navigate to="/auth/login"/>
+    children
   )
 }
 

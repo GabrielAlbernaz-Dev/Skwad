@@ -3,7 +3,7 @@ import React, { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { firebaseAuth, firebaseDb } from '../config/firebase';
 import { signOut } from 'firebase/auth';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection,getDocs, query, where } from 'firebase/firestore';
 
 export const UserContext = createContext();
 

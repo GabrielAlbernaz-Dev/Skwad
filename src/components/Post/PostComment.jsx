@@ -13,7 +13,7 @@ const PostComment = ({title,text,src,time,profileId}) => {
     }
 
   return (
-    <article className={`${styles.postItemContainer} flexColumn gap-1`}>
+    <article className={`${styles.postItemContainer} flexColumn flex-start gap-1`}>
         <Link className={styles.postProfilePicture}>
           <img src={src} alt={src ? src.slice(0,4) : ''} />
         </Link>

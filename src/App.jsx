@@ -3,7 +3,7 @@ import './utilities.scss'
 import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import Header from './layouts/Header/Header'
 import Home from './pages/Home/Home'
-import {  UserContext, UserStorage } from './context/UserContext'
+import { UserStorage } from './context/UserContext'
 import Explore from './pages/Explore/Explore'
 import Notifications from './pages/Notifications/Notifications'
 import Sidebar from './layouts/Sidebar/Sidebar'
@@ -13,7 +13,6 @@ import {  ModalStorage } from './context/ModalContext'
 import ProtectedRoute from './helper/ProtectedRoute'
 import ProtectedComponent from './helper/ProtectedComponent'
 import Auth from './pages/Auth/Auth'
-import { useContext } from 'react'
 import ActionModal from './helper/ActionModal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
@@ -34,10 +33,10 @@ function App() {
                   <Sidebar/>
                 </ProtectedComponent>
                 <Routes>
-                  <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
-                  <Route path="/explore" element={<ProtectedRoute><Explore/></ProtectedRoute>} />
-                  <Route path="/notifications" element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
-                  <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+                    <Route path="/" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+                    <Route path="/explore" element={<ProtectedRoute><Explore/></ProtectedRoute>} />
+                    <Route path="/notifications" element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
+                    <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
                   <Route path="/auth/*" element={<Auth/>}/>
                 </Routes>
                 <ActionModal/>

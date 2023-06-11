@@ -26,7 +26,7 @@ const AuthForm = ({isRegister,title,subtitle}) => {
     });
     
     const {register,handleSubmit,control} = useForm();
-    const mutation = useMutation( async (formData) => {
+    const mutation = useMutation(async(formData) => {
         if (isRegister) {
             const { user } = await createUserWithEmailAndPassword(firebaseAuth, formData.email, formData.password);
             const profileInfoRef = doc(firebaseDb, "profileInfo", user.uid);
@@ -48,7 +48,7 @@ const AuthForm = ({isRegister,title,subtitle}) => {
         
             return user;
         }
-        return await signInWithEmailAndPassword(firebaseAuth, formData.email, formData.password);
+            return await signInWithEmailAndPassword(firebaseAuth, formData.email, formData.password);
         }, {
         onSuccess: (result) => {
             const { user } = result;

@@ -11,7 +11,7 @@ import { firebaseDb } from '../../config/firebase';
 import { collection,addDoc, serverTimestamp } from 'firebase/firestore';
 
 
-const PostBox = ({src,alt,placeholder}) => {  
+const PostBox = ({src,alt,placeholder,refetchData}) => {  
   const{register,handleSubmit,setValue, watch,reset} = useForm();
   const {profileInfo} = useContext(UserContext);
   const maxCharacters = 300;
@@ -20,7 +20,6 @@ const PostBox = ({src,alt,placeholder}) => {
 
   const mutation = useMutation({
       mutationFn: async (formData) => {
-        console.log(profileInfo)
         const updatedFormData = {
           ...formData,
           userId: profileInfo.userId,
@@ -29,9 +28,10 @@ const PostBox = ({src,alt,placeholder}) => {
           timestamp: serverTimestamp(),
         };
 
-        return await addDoc(collection(firebaseDb, "posts"), updatedFormData);
+        return await addDoc(collection(firebaseDb, 'posts'), updatedFormData);
       },
       onSuccess: (result) => {
+        refetchData();
         reset();
       },
       onError: (error) => {
@@ -69,7 +69,7 @@ const PostBox = ({src,alt,placeholder}) => {
     setValue('post', postFieldValue + emoji);
   }
 
-  return (
+return (
     <form onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.postBoxContainer}>
             <div className={styles.postBoxFieldContainer}>
