@@ -11,6 +11,7 @@ import ActionIcon from '../../components/ActionIcon/ActionIcon'
 import SmallButton from '../../components/Button/SmallButton'
 import Modal from '../../components/Modal/Modal'
 import { UserContext } from '../../context/UserContext'
+import Search from '../../components/Search/Search'
 
 const Header = () => {
   const {logout} = useContext(UserContext);
@@ -24,7 +25,7 @@ const Header = () => {
         <header className={styles.mainHeader}>
         <div className={`${styles.headerContainer} container`}>
             <Brand/>
-            <SearchBar placeholder="Search Posts and Accounts"/>
+            <Search/>
             <div className="flexContainerRow">
               <MediaQuery maxWidth={767}>
                 <SmallButton onClick={handleLogout} primary={true} text="Logout"/>

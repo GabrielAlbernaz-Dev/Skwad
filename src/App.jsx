@@ -37,6 +37,7 @@ function App() {
                     <Route path="/explore" element={<ProtectedRoute><Explore/></ProtectedRoute>} />
                     <Route path="/notifications" element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
                     <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+                    <Route path="/profile/:id" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
                   <Route path="/auth/*" element={<Auth/>}/>
                 </Routes>
                 <ActionModal/>

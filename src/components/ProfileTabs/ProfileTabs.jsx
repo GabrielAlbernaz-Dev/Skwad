@@ -14,7 +14,6 @@ const ProfileTabs = ({active,setActive}) => {
         <li className={`${styles.tabItem} ${active == 'likes' ? 'tabItemActive' : ''}`} data-tab="likes" onClick={handleActiveTab}>Likes</li>
         <li className={`${styles.tabItem} ${active == 'comments' ? 'tabItemActive' : ''}`} data-tab="comments" onClick={handleActiveTab}>Comments</li>
       </ul>
-
     </> 
   )
 }

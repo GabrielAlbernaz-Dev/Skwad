@@ -1,66 +1,115 @@
 @import '../../variables.scss';
 
-.searchBar {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    background-color: $dark;
-    border-radius: 1.6rem;
-    padding: .8rem;
+.searchItem {
     min-width:36rem;
-    margin-right: 1.2rem;
-    @media(max-width:$md) {
-        min-width:24rem;
-    }
-    @media(max-width:$sm) {
-        min-width:12rem;
-        max-width: 16rem;
-    }
-    .searchInput {
-        margin-right: .8rem;
-        font-size: 1.6rem;
-        padding:.4rem;
-        background: none;
-        color:$light;
-        -webkit-transition:.2s;
-        -o-transition:.2s;
-        transition:.2s;
-        &::-webkit-input-placeholder {
-            color: $gray;
+    .searchBar {
+        position: relative;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        background-color: $dark;
+        border-radius: 1rem;
+        padding: .8rem;
+        min-width:100%;
+        margin-right: 1.2rem;
+        @media(max-width:$md) {
+            min-width:24rem;
         }
-        &::-moz-placeholder {
-            color: $gray;
+        @media(max-width:$sm) {
+            min-width:12rem;
+            max-width: 16rem;
         }
-        &:-ms-input-placeholder {
-            color: $gray;
+        .searchInput {
+            margin-right: .8rem;
+            font-size: 1.6rem;
+            padding:.4rem;
+            background: none;
+            color:$light;
+            -webkit-transition:.2s;
+            -o-transition:.2s;
+            transition:.2s;
+            &::-webkit-input-placeholder {
+                color: $gray;
+            }
+            &::-moz-placeholder {
+                color: $gray;
+            }
+            &:-ms-input-placeholder {
+                color: $gray;
+            }
+            &::-ms-input-placeholder {
+                color: $gray;
+            }
+            &::placeholder {
+                color: $gray;
+            }
         }
-        &::-ms-input-placeholder {
-            color: $gray;
+    
+        .searchButton {
+            border: none;
+            background-color: transparent;
+            outline: none;
+            padding:0 1.2rem;
+            cursor: pointer;
+            -webkit-transition:.2s;
+            -o-transition:.2s;
+            transition:.2s;
+    
+            svg {
+            color: $light;
+            font-size: 2rem;
+            &:hover {
+                color: $primary;
+            }
+            }
         }
-        &::placeholder {
-            color: $gray;
-        }
-    }
 
-    .searchButton {
-        border: none;
-        background-color: transparent;
-        outline: none;
-        padding:0 1.2rem;
-        cursor: pointer;
-        -webkit-transition:.2s;
-        -o-transition:.2s;
-        transition:.2s;
+        .searchList {
+            position: absolute;
+            z-index: 999;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            background-color: $dark;
+            border-radius: 1rem;
+            padding-top: 1rem;
+            max-height: 30rem;
+            overflow-y: auto;
+            box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
+            .searchListNoResults {
+                color: $light;
+                font-size: 1.6rem;
+                padding: 1rem;
+            }
+            .searchListItem {
+                width: 100%;
+                &:hover {
+                    background: $dark-hover;
+                }
+                &:last-child {
+                    border-radius: 0 0 1rem 1rem;
+                }
+                a {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    width: 100%;
+                    padding: 1.2rem;
+                    .searchListItemText {
+                        font-size: 1.6rem;
+                        color: $light;
+                    }
 
-        svg {
-        color: $light;
-        font-size: 2rem;
-        &:hover {
-            color: $primary;
-        }
+                    .searchListItemType {
+                        font-size: 1.2rem;
+                        font-weight: 600;
+                        color: $primary;
+                    }
+                }
+            }
         }
     }
 }

@@ -13,25 +13,29 @@ export const UserStorage = ({children}) => {
   const [auth,setAuth] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=>{
-      firebaseAuth.onAuthStateChanged(async (user) => {
-          if (user) {
-            login(user);
-            const profileQuery = query(collection(firebaseDb, "profileInfo"), where("userId", "==", user.uid));
-            const profileDocs = await getDocs(profileQuery);
-            if (!profileDocs.empty) {
-              const profileDoc = profileDocs.docs[0];
-              const profileData = profileDoc.data();
-              setProfileInfo(profileData);
-            } else {
-              setProfileInfo(null);
-            }
-          } else {
-            logout();
-            setProfileInfo(null);
-          }
-        });
-  },[]);
+  useEffect(() => {
+    firebaseAuth.onAuthStateChanged(async (user) => {
+      if (user) {
+        login(user);
+        const profileQuery = query(collection(firebaseDb, "profileInfo"), where("userId", "==", user.uid));
+        const profileDocs = await getDocs(profileQuery);
+        if (!profileDocs.empty) {
+          const profileDoc = profileDocs.docs[0];
+          const profileData = profileDoc.data();
+          const profileInfoWithId = {
+            id: profileDoc.id,
+            ...profileData
+          };
+          setProfileInfo(profileInfoWithId);
+        } else {
+          setProfileInfo(null);
+        }
+      } else {
+        logout();
+        setProfileInfo(null);
+      }
+    });
+  }, []);
 
   function login(user) {
     setUser(user);

@@ -10,6 +10,10 @@
     margin: 0 auto;
 }
 
+.dp-none {
+    display: none;
+}
+
 .navItemActive {
     color: $primary;
     svg {
@@ -117,6 +121,13 @@
 .redirectTitle {
     font-size: 4rem;
     text-align: center;
+    color: $light;
+}
+
+.noResults {
+    font-size: 2.2rem;
+    margin: 2.5rem 1rem;
+    margin-left: 2rem;
     color: $light;
 }
 

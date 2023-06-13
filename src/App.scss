@@ -29,6 +29,18 @@ input,textarea {
 body {
   background: $background;
   font-family: 'Nunito', sans-serif;
+  &::-webkit-scrollbar {
+    width: .65rem;
+  }
+
+  &::-webkit-scrollbar-track {
+      background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+      background-color: $primary;
+      border-radius: 1rem;
+  }
 }
 
 @media(max-width:$md) {
