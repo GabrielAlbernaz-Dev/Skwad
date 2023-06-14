@@ -23,6 +23,7 @@ const Profile = () => {
   const [postProfileLiked, setPostProfileLiked] = useState([]);
   const [currentProfileInfo, setCurrentProfileInfo] = useState(null);
   const [currentProfileLikes, setCurrentProfileLikes] = useState(null);
+  const [profileLogged,setProfileLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -42,6 +43,7 @@ const Profile = () => {
         const postsLikedData = await getLikedPostsByUser(profileInfoData?.userId); 
         setPostProfileLiked(postsLikedData);
 
+        setProfileLogged(profileInfo.userId === profileInfoData.userId);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -50,7 +52,6 @@ const Profile = () => {
     }
 
     fetchProfileData();
-    console.log(currentProfileInfo)
   }, [id,activeTabs]);
 
   const data = {
@@ -71,7 +72,7 @@ const Profile = () => {
           followers={id ? '1' : '100'}
           likes={currentProfileLikes ? currentProfileLikes : '0'}
           description={id ? 'ID desc' : 'Lorem ipsum'}
-          profileLogged={profileInfo?.id === currentProfileInfo?.id}
+          profileLogged={profileLogged}
         />
         <ProfileTabs active={activeTabs} setActive={setActiveTabs} />
         {isLoading ? (

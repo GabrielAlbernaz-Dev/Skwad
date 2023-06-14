@@ -8,6 +8,9 @@ import { UserContext } from '../../context/UserContext'
 const ProfileHeader = ({name,username,following,followers,likes,description,profileLogged}) => {
   const {modalSettings} = useContext(ModalContext);
   const {profileInfo} = useContext(UserContext);
+
+  
+
   return (
     <header className={styles.profileHeader}>
         <section className={styles.profileHeaderInfo}>

@@ -32,6 +32,7 @@
     gap: 8rem;
     align-items: center;
     width: 100%;
+    padding: 0 2rem;
     form,
     img {
         flex: 1;
@@ -39,12 +40,11 @@
     @media(max-width:$lg) {
         flex-direction: column;
         gap: 4rem;
-        padding: 0 2rem;
     }
 
     .authTextContainer {
         margin-bottom: 2rem;
-    }
+    }   
 
     .authFormTitle {
         font-size: 4.5rem;
