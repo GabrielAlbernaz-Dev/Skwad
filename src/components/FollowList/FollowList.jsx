@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './FollowList.module.scss'
+import profileDefaultImage  from '../../assets/default-avatar.jpg';
 import { Link } from 'react-router-dom'
 
 const FollowList = ({text,accounts}) => {
@@ -10,12 +11,12 @@ const FollowList = ({text,accounts}) => {
             {accounts && accounts.map((account,i) => {
                 return (
                     <li className={styles.followListItem} key={i}>
-                        <Link to={account.path} className={styles.followListAvatar}>
-                            <img src={account.avatar.src} alt={account.avatar.alt} />
+                        <Link to={`/profile/${account.id}`} className={styles.followListAvatar}>
+                            <img src={profileDefaultImage} alt={''} />
                         </Link>
-                        <Link to={account.path} className={styles.followListText}>
-                            <h5 className={styles.followListTextProfile}>{account.profile.name}</h5>
-                            <p className={styles.followListTextBio}>{account.profile.bio}</p>
+                        <Link to={`/profile/${account.id}`} className={styles.followListText}>
+                            <h5 className={styles.followListTextProfile}>{account.name}</h5>
+                            <p className={styles.followListTextBio}>{'@' + account.username}</p>
                         </Link>
                     </li>
                 )

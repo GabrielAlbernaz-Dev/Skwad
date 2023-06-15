@@ -5,11 +5,8 @@ import { ModalContext } from '../../context/ModalContext'
 import profilePhoto from '../../assets/profile-photo.jpeg'
 import { UserContext } from '../../context/UserContext'
 
-const ProfileHeader = ({name,username,following,followers,likes,description,profileLogged}) => {
+const ProfileHeader = ({name,username,following,followers,likes,description,profileLogged,isFollowing,handleFollow}) => {
   const {modalSettings} = useContext(ModalContext);
-  const {profileInfo} = useContext(UserContext);
-
-  
 
   return (
     <header className={styles.profileHeader}>
@@ -41,7 +38,7 @@ const ProfileHeader = ({name,username,following,followers,likes,description,prof
             {profileLogged ? 
                 <MediumButton onClick={modalSettings.handleModal} data-modal-component="edit-profile" primary={true} text="Edit Profile"/>
                 : 
-                <MediumButton primary={true} text="Follow"/> 
+                <MediumButton onClick={handleFollow} primary={true} text={isFollowing ? 'Unfollow' : 'Follow'}/> 
             }
         </section>
     </header>

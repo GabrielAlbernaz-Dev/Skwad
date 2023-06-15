@@ -24,6 +24,7 @@ export async function getPostByUserId(userId) {
       id: doc.id,
       ...doc.data(),
     }));
+    console.log(posts)
     return posts;
   } catch (error) {
     console.error('Erro to get posts:', error);

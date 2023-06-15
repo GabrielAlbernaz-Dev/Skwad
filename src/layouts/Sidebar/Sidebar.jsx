@@ -9,10 +9,13 @@ import profileUser from '../../assets/default-avatar.jpg';
 import { UserContext } from '../../context/UserContext';
 import { getProfileInfoByUserId } from '../../data/profile';
 import Loading from '../../components/Loading/Loading';
+import { getFollowingProfiles, getPopularProfiles } from '../../data/follow';
 
 const Sidebar = () => {
   const { profileInfo } = useContext(UserContext);
   const [profileUserInfo, setProfileUserInfo] = useState(null);
+  const [popularProfiles, setPopularProfiles] = useState(null);
+  const [followingProfiles, setFollowingProfiles] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -28,66 +31,36 @@ const Sidebar = () => {
         setIsLoading(false);
       }
     };
-    fetchProfileUser();
-  },[profileInfo]);
 
-  const accountsFactory = [
-    {
-      path:"/",
-      profile: {
-        name:'brTT',
-        bio:'@brttGames'
-      },
-      avatar: {
-        src:profileUser,
-        alt:'Brtt Profile'
-      }
-    },
-    {
-      path:"/",
-      profile: {
-        name:'FURIA Mwzera',
-        bio:'@mwzera'
-      },
-      avatar: {
-        src:profileUser,
-        alt:'MW Profile'
-      }
-    },
-    {
-      path:"/",
-      profile: {
-        name:'brTT',
-        bio:'@brttGames'
-      },
-      avatar: {
-        src:profileUser,
-        alt:'Brtt Profile'
-      }
-    },
-    {
-      path:"/",
-      profile: {
-        name:'brTT',
-        bio:'@brttGames'
-      },
-      avatar: {
-        src:profileUser,
-        alt:'Brtt Profile'
-      }
-    },
-    {
-      path:"/",
-      profile: {
-        name:'brTT',
-        bio:'@brttGames'
-      },
-      avatar: {
-        src:profileUser,
-        alt:'Brtt Profile'
+    async function fetchFollowingProfiles() {
+      try {
+        if (profileInfo) {
+          const profiles = await getFollowingProfiles(profileInfo.userId);
+          setFollowingProfiles(profiles);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+        setIsLoading(false);
       }
     }
-  ];
+
+    async function fetchPopularProfiles() {
+      try {
+        if (profileInfo) {
+          const popularProfilesData = await getPopularProfiles(5);
+          setPopularProfiles(popularProfilesData);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+      }
+    }
+
+    fetchProfileUser();
+    fetchFollowingProfiles();
+    fetchPopularProfiles();
+  },[profileInfo]);
 
   if (isLoading) {
     return (
@@ -108,8 +81,8 @@ const Sidebar = () => {
           <NavItem path="/notifications" icon={<IoMdNotifications />} text="Notifications" />
           <NavItem path={`/profile/${profileUserInfo ? profileUserInfo.id : ''}`} icon={<FaUser />} text="Profile" />
         </nav>
-        <FollowList text="Popular" accounts={accountsFactory} />
-        <FollowList text="Following" accounts={accountsFactory} />
+        <FollowList text="Popular" accounts={popularProfiles} />
+        <FollowList text="Following" accounts={followingProfiles} />
       </aside>
     </div>
   );

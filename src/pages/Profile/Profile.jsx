@@ -8,21 +8,26 @@ import PostList from '../../components/Post/PostList';
 import Head from '../../helper/Head';
 import profilePhoto from '../../assets/profile-photo.jpeg';
 import { getLikedPostsByUser, getPostByUserId, getPosts } from '../../data/posts';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useParams } from 'react-router-dom';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useLocation, useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
 import { firebaseDb } from '../../config/firebase';
 import Loading from '../../components/Loading/Loading';
 import { getProfileInfoById } from '../../data/profile';
+import { countFollowersById, countFollowsById, followProfileById,isFollowingProfile, unfollowProfileById } from '../../data/follow';
+
 const Profile = () => {
   const [activeTabs, setActiveTabs] = useState('posts');
   const { profileInfo } = useContext(UserContext);
   const { id } = useParams();
   const [postsProfile, setPostsProfile] = useState([]);
+  const [followingProfile, setFollowingProfile] = useState(false);
   const [postProfileLiked, setPostProfileLiked] = useState([]);
+  const [currentFollowersCount, setCurrentFollowersCount] = useState(0);
+  const [currentFollowsCount, setCurrentFollowsCount] = useState(0);
+  const [currentProfileLikes, setCurrentProfileLikes] = useState(0);
   const [currentProfileInfo, setCurrentProfileInfo] = useState(null);
-  const [currentProfileLikes, setCurrentProfileLikes] = useState(null);
   const [profileLogged,setProfileLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,6 +37,15 @@ const Profile = () => {
       try {
         const profileInfoData = await getProfileInfoById(id);
         setCurrentProfileInfo(profileInfoData);
+
+        const profileIsFollowing = await isFollowingProfile(profileInfoData?.userId, profileInfo.userId);
+        setFollowingProfile(profileIsFollowing);
+
+        const followersCountResponse = await countFollowersById(profileInfo.userId);
+        setCurrentFollowersCount(followersCountResponse);
+
+        const followsCountResponse = await countFollowsById(profileInfo.userId);
+        setCurrentFollowsCount(followsCountResponse);
 
         const likesSnapshot = await getDocs(collection(firebaseDb, 'likes'));
         const likesData = likesSnapshot.docs.filter((doc) => doc.data().userPostId === profileInfoData?.userId).length;
@@ -50,9 +64,29 @@ const Profile = () => {
         setIsLoading(false);
       }
     }
-
     fetchProfileData();
   }, [id,activeTabs]);
+
+  const mutationFollows = useMutation({
+    mutationFn: async () => {
+      if (followingProfile) {
+        return await unfollowProfileById(currentProfileInfo?.userId, profileInfo?.userId);
+      } else {
+        return await followProfileById(id, currentProfileInfo?.userId, profileInfo?.userId);
+      }
+    },
+    onSuccess: (result) => {
+      setFollowingProfile(prevFollowingProfile => !prevFollowingProfile);
+    },
+    onError: (error) => {
+      console.error(error);
+      console.error(mutationFollows.error);
+    },
+  });
+  
+  function handleFollow() {
+    mutationFollows.mutate();
+  }
 
   const data = {
     posts: postsProfile,
@@ -68,11 +102,13 @@ const Profile = () => {
           id={id}
           name={id ? currentProfileInfo?.name : profileInfo?.name}
           username={id ? currentProfileInfo?.username : profileInfo?.username}
-          following={'10,000'}
-          followers={id ? '1' : '100'}
-          likes={currentProfileLikes ? currentProfileLikes : '0'}
-          description={id ? 'ID desc' : 'Lorem ipsum'}
+          following={currentFollowsCount}
+          followers={currentFollowersCount}
+          likes={currentProfileLikes}
+          description={'Lorem ipsum'}
           profileLogged={profileLogged}
+          handleFollow={handleFollow}
+          isFollowing={followingProfile}
         />
         <ProfileTabs active={activeTabs} setActive={setActiveTabs} />
         {isLoading ? (
