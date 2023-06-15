@@ -6,6 +6,8 @@ import {postsDataTest} from '../data/PostsMock'
 import Input from '../components/Form/Input'
 import EditProfile from '../layouts/Profile/EditProfile'
 import PostShare from '../components/Post/PostShare'
+import profileDefaultImage from '../assets/default-avatar.jpg'
+import CommentBox from '../components/Comment/CommentBox'
 
 const ActionModal = () => {
   const { modalComponent } = useContext(ModalContext);
@@ -20,9 +22,9 @@ const ActionModal = () => {
     case 'comment':
       return (
         <Modal>
-          <PostList type="comment" data={postsDataTest} />
+          <CommentBox src={profileDefaultImage} placeholder={'Teste'}/>
         </Modal>
-      );
+    );
     case 'reply':
       return (
         <Modal>

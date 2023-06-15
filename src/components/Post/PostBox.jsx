@@ -3,12 +3,12 @@ import styles from './Post.module.scss'
 import { Link } from 'react-router-dom'
 import SmallButton from '../Button/SmallButton'
 import PostInputFile from './PostInputFile';
-import PostEmoji from './PostEmoji';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { UserContext } from '../../context/UserContext';
 import { firebaseDb } from '../../config/firebase';
 import { collection,addDoc, serverTimestamp } from 'firebase/firestore';
+import EmojiPost from '../Emoji/EmojiPost';
 
 
 const PostBox = ({src,alt,placeholder,refetchData}) => {  
@@ -65,7 +65,7 @@ const PostBox = ({src,alt,placeholder,refetchData}) => {
     }
   }
 
-  function handleEmojiClick(emoji) {
+  function handleSelectEmoji(emoji) {
     setValue('post', postFieldValue + emoji);
   }
 
@@ -83,11 +83,11 @@ return (
             <div className={styles.postBoxActionContainer}>
                 <div className={styles.postBoxActions}>
                     <PostInputFile/>
-                    <PostEmoji onEmojiClick={handleEmojiClick} />
+                    <EmojiPost onSelectEmoji={handleSelectEmoji}/>
                 </div>
                 <div className={styles.postFieldSection}>
                     <p className={styles.counterFieldLength}>{postFieldValue ? postFieldValue.length : 0}/<span>{maxCharacters}</span></p>
-                    <SmallButton type="submit" primary={true} text="Submit"/>
+                    <SmallButton type="submit" primary={true} text="Post"/>
                 </div>
             </div>
         </div>

@@ -100,9 +100,9 @@
             display: -ms-flexbox;
             display: flex;
             gap: 2rem;
-            // -webkit-box-align: center;
-            //     -ms-flex-align: center;
-            //         align-items: center;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
             padding-top: 1rem;
 
             .postFileInput {
@@ -125,61 +125,6 @@
                     width: 100%;
                     height: 100%;
                     color: $primary;
-                }
-            }
-
-            .postEmojiContainer  {
-                position: relative;
-                width: 2rem;
-                height: 2rem;
-                .postEmojiBox {
-                    position: absolute;
-                    z-index: 998;
-                    top: 2rem;
-                    left: 0;
-                    width: 40rem;
-                    max-height: 60rem;
-                    overflow-y: auto;
-                    background-color: $dark;
-                    border: 1px solid $opacityBorder;
-                    border-radius: 5px;
-                    padding: 1rem;
-                    @media screen and (max-width:$md) {
-                        width: 18rem;
-                    }
-                    @media screen and (max-width:$sm) {
-                        max-height: 35rem;
-                        left: -2rem;
-                        top: 3rem;
-                    }
-                    .postEmojiBoxCloseContainer {
-                        width: 100%;
-                        display: flex;
-                        justify-content: flex-end;
-                        .postEmojiBoxClose {
-                            display: inline-block;
-                            font-size: 2.4rem;
-                            font-weight: 700;
-                            color: $primary;
-                            margin-bottom: 1rem;
-                            cursor: pointer;
-                            transition: .2s;
-                            &:hover {
-                                transform: scale(1.03);
-                            }
-                        }
-                    }
-                    .postEmojiList {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 1rem;
-                        align-items: center;
-                        li {
-                            font-size: 2rem;
-                            cursor: pointer;
-                            flex: 1;
-                        }
-                    }
                 }
             }
 
