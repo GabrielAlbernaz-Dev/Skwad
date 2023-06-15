@@ -47,10 +47,10 @@ const Profile = () => {
         const followsCountResponse = await countFollowsById(profileInfo.userId);
         setCurrentFollowsCount(followsCountResponse);
 
-        const likesSnapshot = await getDocs(collection(firebaseDb, 'likes'));
-        const likesData = likesSnapshot.docs.filter((doc) => doc.data().userPostId === profileInfoData?.userId).length;
+        const likesSnapshot = await getDocs(query(collection(firebaseDb, 'likes'), where('userPostId', '==', profileInfoData?.userId)));
+        const likesData = likesSnapshot.size;
         setCurrentProfileLikes(likesData);
-
+        
         const postProfileData = await getPostByUserId(profileInfoData?.userId);
         setPostsProfile(postProfileData);
 

@@ -1,6 +1,6 @@
 import './App.scss'
 import './utilities.scss'
-import { BrowserRouter,Routes,Route } from 'react-router-dom'
+import { BrowserRouter,Routes,Route, Navigate } from 'react-router-dom'
 import Header from './layouts/Header/Header'
 import Home from './pages/Home/Home'
 import { UserStorage } from './context/UserContext'
@@ -15,6 +15,7 @@ import ProtectedComponent from './helper/ProtectedComponent'
 import Auth from './pages/Auth/Auth'
 import ActionModal from './helper/ActionModal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import Post from './pages/Post/Post'
 
 const queryClient = new QueryClient();
 
@@ -38,7 +39,9 @@ function App() {
                     <Route path="/notifications" element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
                     <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
                     <Route path="/profile/:id" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
-                  <Route path="/auth/*" element={<Auth/>}/>
+                    <Route path="/posts/:id" element={<ProtectedRoute><Post/></ProtectedRoute>}/>
+                    <Route path="/auth/*" element={<Auth/>}/>
+                    <Route path="*" element={<Navigate to="/"/>}/>
                 </Routes>
                 <ActionModal/>
               </Main>

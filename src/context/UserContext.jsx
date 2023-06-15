@@ -40,7 +40,6 @@ export const UserStorage = ({children}) => {
   function login(user) {
     setUser(user);
     setAuth(true);
-    navigate('/');
   };
 
   function logout() {

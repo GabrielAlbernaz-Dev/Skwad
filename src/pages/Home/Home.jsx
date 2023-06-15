@@ -17,7 +17,7 @@ const Home = () => {
     <>
       <Head title="Home" description="Homepage"/>
       <ContentContainer>
-          <PostBox refetchData={refetch} src={profileUser} placeholder="What's on your mind, Gabriel?"/>
+          <PostBox refetchData={refetch} src={profileUser} placeholder={`What's on your mind, ${profileInfo?.name}?`}/>
           {isLoading ? 
           <div className="flex-row-center"><Loading loading={isLoading} /></div> 
           : 
