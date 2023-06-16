@@ -17,11 +17,11 @@ const Home = () => {
     <>
       <Head title="Home" description="Homepage"/>
       <ContentContainer>
-          <PostBox refetchData={refetch} src={profileUser} placeholder={`What's on your mind, ${profileInfo?.name}?`}/>
+          <PostBox refetchData={refetch} src={profileUser} maxLength={300} placeholder={`What's on your mind, ${profileInfo?.name}?`}/>
           {isLoading ? 
           <div className="flex-row-center"><Loading loading={isLoading} /></div> 
           : 
-          <PostList data={posts}/>}
+          <PostList data={posts} type="posts"/>}
       </ContentContainer>
     </>
   )

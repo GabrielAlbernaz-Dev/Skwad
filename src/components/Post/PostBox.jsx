@@ -7,39 +7,42 @@ import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { UserContext } from '../../context/UserContext';
 import { firebaseDb } from '../../config/firebase';
-import { collection,addDoc, serverTimestamp } from 'firebase/firestore';
+import { collection,addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 import EmojiPost from '../Emoji/EmojiPost';
 
 
-const PostBox = ({src,alt,placeholder,refetchData}) => {  
+const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,refetchData,...props}) => {  
   const{register,handleSubmit,setValue, watch,reset} = useForm();
   const {profileInfo} = useContext(UserContext);
-  const maxCharacters = 300;
+  const maxCharacters = maxLength;
   const postFieldRef = useRef(null);
   const postFieldValue = watch('post', '');
 
   const mutation = useMutation({
-      mutationFn: async (formData) => {
-        const updatedFormData = {
-          ...formData,
-          userId: profileInfo.userId,
-          username:profileInfo.username,
-          name:profileInfo.name,
-          timestamp: serverTimestamp(),
-        };
-
-        return await addDoc(collection(firebaseDb, 'posts'), updatedFormData);
-      },
-      onSuccess: (result) => {
-        refetchData();
-        reset();
-      },
-      onError: (error) => {
-          console.log(error)
-          console.log(mutation.error)
-          reset();
-      }
+    mutationFn: async (formData) => {
+      const updatedFormData = {
+        ...formData,
+        userId: profileInfo.userId,
+        username: profileInfo.username,
+        name: profileInfo.name,
+        postParent: parentId ? parentId : null,
+        isComment: comment ? true : false,
+        timestamp: serverTimestamp(),
+      };
+      
+      return await addDoc(collection(firebaseDb, 'posts'), updatedFormData);
+    },
+    onSuccess: (result) => {
+      refetchData();
+      reset();
+    },
+    onError: (error) => {
+      console.log(error);
+      console.log(mutation.error);
+      reset();
+    },
   });
+  
 
   function onSubmit(data) {
       mutation.mutate(data)
@@ -70,7 +73,7 @@ const PostBox = ({src,alt,placeholder,refetchData}) => {
   }
 
 return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} {...props}>
         <div className={styles.postBoxContainer}>
             <div className={styles.postBoxFieldContainer}>
                 <Link className={styles.postProfilePicture}>
@@ -87,7 +90,7 @@ return (
                 </div>
                 <div className={styles.postFieldSection}>
                     <p className={styles.counterFieldLength}>{postFieldValue ? postFieldValue.length : 0}/<span>{maxCharacters}</span></p>
-                    <SmallButton type="submit" primary={true} text="Post"/>
+                    <SmallButton type="submit" primary={true} text={comment ? 'Comment' : 'Post'}/>
                 </div>
             </div>
         </div>

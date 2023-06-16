@@ -8,7 +8,7 @@ import { firebaseDb } from '../../config/firebase';
 import { collection,doc,getDocs,query, where, updateDoc, addDoc, deleteDoc } from 'firebase/firestore';
 import { UserContext } from '../../context/UserContext';
 
-const PostItem = ({ id, title, text, src, time, profileUsername,userPostId }) => {
+const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isParent }) => {
   const { profileInfo } = useContext(UserContext);
   const { modalSettings } = useContext(ModalContext);
   const [profileId,setProfileId] = useState(null);
@@ -105,9 +105,11 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId }) =>
         <i className={liked ? 'primary' : ''} onClick={handleLikePost}>
           <FaHeart />
         </i>
-        <i onClick={modalSettings.handleModal} data-modal-component="comment">
-          <FaComment />
-        </i>
+        {isParent ? '' : (<Link className={styles.postCommentIcon} to={`/posts/${id}`}>
+          <i>
+            <FaComment />
+          </i>
+        </Link>)}
         <i onClick={modalSettings.handleModal} data-modal-component="reply">
           <FaShare />
         </i>

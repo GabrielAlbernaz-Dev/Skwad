@@ -1,7 +1,7 @@
 @import './variables.scss';
 
 .primary {
-    color: $primary;
+    color: $primary!important;
 }
 
 .container {
@@ -129,6 +129,12 @@
     margin: 2.5rem 1rem;
     margin-left: 2rem;
     color: $light;
+}
+
+.commentsTitle {
+    margin-top: 1rem;
+    color: $light;
+    font-size: 2.2rem;
 }
 
 .pickerContainer {

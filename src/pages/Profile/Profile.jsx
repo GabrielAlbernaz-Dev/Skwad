@@ -7,7 +7,7 @@ import { useState } from 'react';
 import PostList from '../../components/Post/PostList';
 import Head from '../../helper/Head';
 import profilePhoto from '../../assets/profile-photo.jpeg';
-import { getLikedPostsByUser, getPostByUserId, getPosts } from '../../data/posts';
+import { getLikedPostsByUser, getPostsByUserId, getPosts, getComments, getCommentsByUserId } from '../../data/posts';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useLocation, useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
@@ -22,8 +22,9 @@ const Profile = () => {
   const { profileInfo } = useContext(UserContext);
   const { id } = useParams();
   const [postsProfile, setPostsProfile] = useState([]);
-  const [followingProfile, setFollowingProfile] = useState(false);
   const [postProfileLiked, setPostProfileLiked] = useState([]);
+  const [postsProfileComments, setPostsProfileComments] = useState([]);
+  const [followingProfile, setFollowingProfile] = useState(false);
   const [currentFollowersCount, setCurrentFollowersCount] = useState(0);
   const [currentFollowsCount, setCurrentFollowsCount] = useState(0);
   const [currentProfileLikes, setCurrentProfileLikes] = useState(0);
@@ -38,26 +39,29 @@ const Profile = () => {
         const profileInfoData = await getProfileInfoById(id);
         setCurrentProfileInfo(profileInfoData);
 
-        const profileIsFollowing = await isFollowingProfile(profileInfoData?.userId, profileInfo.userId);
+        const profileIsFollowing = await isFollowingProfile(profileInfoData?.userId, profileInfo?.userId);
         setFollowingProfile(profileIsFollowing);
 
-        const followersCountResponse = await countFollowersById(profileInfo.userId);
+        const followersCountResponse = await countFollowersById(profileInfo?.userId);
         setCurrentFollowersCount(followersCountResponse);
 
-        const followsCountResponse = await countFollowsById(profileInfo.userId);
+        const followsCountResponse = await countFollowsById(profileInfo?.userId);
         setCurrentFollowsCount(followsCountResponse);
 
         const likesSnapshot = await getDocs(query(collection(firebaseDb, 'likes'), where('userPostId', '==', profileInfoData?.userId)));
         const likesData = likesSnapshot.size;
         setCurrentProfileLikes(likesData);
         
-        const postProfileData = await getPostByUserId(profileInfoData?.userId);
+        const postProfileData = await getPostsByUserId(profileInfoData?.userId);
         setPostsProfile(postProfileData);
 
         const postsLikedData = await getLikedPostsByUser(profileInfoData?.userId); 
         setPostProfileLiked(postsLikedData);
 
-        setProfileLogged(profileInfo.userId === profileInfoData.userId);
+        const postsCommmentsData = await getCommentsByUserId(profileInfoData?.userId)
+        setPostsProfileComments(postsCommmentsData);
+
+        setProfileLogged(profileInfo?.userId === profileInfoData?.userId);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -65,7 +69,7 @@ const Profile = () => {
       }
     }
     fetchProfileData();
-  }, [id,activeTabs]);
+  }, [id]);
 
   const mutationFollows = useMutation({
     mutationFn: async () => {
@@ -91,7 +95,7 @@ const Profile = () => {
   const data = {
     posts: postsProfile,
     likes: postProfileLiked,
-    comments: [],
+    comments: postsProfileComments,
   };
 
   return (

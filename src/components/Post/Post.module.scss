@@ -284,8 +284,9 @@
             padding-top: 1rem;
         }
 
-        i {
+        i,.postCommentIcon {
             font-size: 2rem;
+            color: $gray;
             cursor: pointer;
             -webkit-transition: .2s;
             -o-transition: .2s;

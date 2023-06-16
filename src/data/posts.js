@@ -22,7 +22,11 @@ export async function getPost(id) {
 
 export async function getPosts() {
     try {
-      const q = query(collection(firebaseDb, 'posts'), orderBy('timestamp', 'desc'));
+      const q = query(
+        collection(firebaseDb, 'posts'),
+        where('isComment', '==', false),
+        orderBy('timestamp', 'desc')
+      );
       const response = await getDocs(q);
       const posts = response.docs.map((doc) => ({
         id: doc.id,
@@ -35,16 +39,60 @@ export async function getPosts() {
     }
 }
 
-export async function getPostByUserId(userId) {
+export async function getComments(id) {
   try {
-    const q = query(collection(firebaseDb, 'posts'), where('userId', '==', userId), orderBy('timestamp', 'desc'));
+    const q = query(
+      collection(firebaseDb, 'posts'),
+      where('isComment', '==', true),
+      where('postParent', '==', id),
+      orderBy('timestamp', 'desc')
+    );
     const response = await getDocs(q);
     const posts = response.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
-    console.log(posts)
     return posts;
+  } catch (error) {
+    console.error('Erro to get posts:', error);
+    return [];
+  }
+}
+
+export async function getPostsByUserId(userId) {
+  try {
+    const q = query(
+      collection(firebaseDb, 'posts'), 
+      where('userId', '==', userId), 
+      where('isComment', '==', false), 
+      orderBy('timestamp', 'desc')
+    );
+    const response = await getDocs(q);
+    const posts = response.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return posts;
+  } catch (error) {
+    console.error('Erro to get posts:', error);
+    return [];
+  }
+}
+
+export async function getCommentsByUserId(userId) {
+  try {
+    const q = query(
+      collection(firebaseDb, 'posts'), 
+      where('userId', '==', userId), 
+      where('isComment', '==', true), 
+      orderBy('timestamp', 'desc')
+    );
+    const response = await getDocs(q);
+    const comments = response.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+    return comments;
   } catch (error) {
     console.error('Erro to get posts:', error);
     return [];

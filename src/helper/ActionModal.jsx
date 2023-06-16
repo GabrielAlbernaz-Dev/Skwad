@@ -19,12 +19,6 @@ const ActionModal = () => {
           <EditProfile/>
         </Modal>
       );
-    case 'comment':
-      return (
-        <Modal>
-          <CommentBox src={profileDefaultImage} placeholder={'Teste'}/>
-        </Modal>
-    );
     case 'reply':
       return (
         <Modal>
