@@ -50,6 +50,9 @@ export async function getPopularProfiles(limit) {
 
 export async function countFollowersById(id) {
     try {
+      if (!id) {
+        throw new Error('Invalid id');
+      }
       const followsQuery = query(
         collection(firebaseDb, 'follows'),
         where('followedId', '==', id)
@@ -65,6 +68,9 @@ export async function countFollowersById(id) {
 
 export async function countFollowsById(id) {
     try {
+      if (!id) {
+        throw new Error('Invalid id');
+      }
       const followsQuery = query(
         collection(firebaseDb, 'follows'),
         where('followerId', '==', id)
