@@ -9,8 +9,8 @@ export async function getPost(id) {
     const postSnapshot = await getDoc(postRef);
 
     if (postSnapshot.exists()) {
-      const post = postSnapshot.data();
-      return post;
+      const postData = postSnapshot.data();
+      return { id: postSnapshot.id, ...postData };
     } else {
       throw new Error('Post not found');
     }
