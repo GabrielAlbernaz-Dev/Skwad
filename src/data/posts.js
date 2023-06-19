@@ -40,7 +40,6 @@ export async function getPosts() {
 }
 
 export async function getNotifications(userPostId,username) {
-  console.log(userPostId)
   try {
     const notifyLikesQuery = query(
       collection(firebaseDb, "notifyLikes"),
