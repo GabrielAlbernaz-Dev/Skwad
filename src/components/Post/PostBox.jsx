@@ -11,7 +11,7 @@ import { collection,addDoc, serverTimestamp, updateDoc, doc } from 'firebase/fir
 import EmojiPost from '../Emoji/EmojiPost';
 
 
-const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,refetchData,...props}) => {  
+const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,refetchData,...props}) => {  
   const{register,handleSubmit,setValue, watch,reset} = useForm();
   const {profileInfo} = useContext(UserContext);
   const maxCharacters = maxLength;
@@ -26,6 +26,7 @@ const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,refetchData,...
         username: profileInfo.username,
         name: profileInfo.name,
         postParent: parentId ? parentId : null,
+        postParentUserId: parentUserId ? parentUserId : null,
         isComment: comment ? true : false,
         timestamp: serverTimestamp(),
       };

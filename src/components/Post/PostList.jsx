@@ -5,8 +5,6 @@ import { UserContext } from '../../context/UserContext';
 import { getPostTimeDiff } from '../../data/posts';
 
 const PostList = ({data,type}) => {
-  const {profileInfo} = useContext(UserContext);
-  
   if(!data || !data.length) {
     return <h1 className="noResults">No results...</h1>
   }

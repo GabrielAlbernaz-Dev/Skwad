@@ -5,7 +5,7 @@ import { FaHeart,FaComment,FaShare } from 'react-icons/fa';
 import { ModalContext } from '../../context/ModalContext';
 import { useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import { firebaseDb } from '../../config/firebase';
-import { collection,doc,getDocs,query, where, updateDoc, addDoc, deleteDoc } from 'firebase/firestore';
+import { collection,doc,getDocs,query, where, updateDoc, addDoc, deleteDoc,serverTimestamp } from 'firebase/firestore';
 import { UserContext } from '../../context/UserContext';
 
 const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isParent }) => {
@@ -42,28 +42,50 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
   const mutation = useMutation(
     async (id) => {
       const likesQuery = query(
-        collection(firebaseDb, 'likes'),
-        where('postId', '==', id),
-        where('userId', '==', profileInfo?.userId)
+        collection(firebaseDb, "likes"),
+        where("postId", "==", id),
+        where("userId", "==", profileInfo?.userId)
       );
       const likesSnapshot = await getDocs(likesQuery);
-
+  
       if (likesSnapshot.size > 0) {
         likesSnapshot.forEach(async (likeDoc) => {
-          await deleteDoc(doc(firebaseDb, 'likes', likeDoc.id));
+          await deleteDoc(doc(firebaseDb, "likes", likeDoc.id));
+
+          const notifyLikesQuery = query(
+            collection(firebaseDb, "notifyLikes"),
+            where("postId", "==", id),
+            where("userId", "==", profileInfo?.userId)
+          );
+
+          const notifyLikesSnapshot = await getDocs(notifyLikesQuery);
+          if (notifyLikesSnapshot.size > 0) {
+            notifyLikesSnapshot.forEach(async (notifyDoc) => {
+              await deleteDoc(doc(firebaseDb, "notifyLikes", notifyDoc.id));
+            });
+          }
+
         });
       } else {
-        await addDoc(collection(firebaseDb, 'likes'), {
+        await addDoc(collection(firebaseDb, "likes"), {
           postId: id,
-          userPostId:userPostId,
+          userPostId: userPostId,
           userId: profileInfo.userId,
+        });
+
+        await addDoc(collection(firebaseDb, "notifyLikes"), {
+          postId: id,
+          userPostId: userPostId,
+          userId: profileInfo.userId,
+          name: profileInfo.name,
+          timestamp: serverTimestamp(),
         });
       }
     },
     {
       onSuccess: (result) => {
         console.log(result);
-        queryClient.invalidateQueries(['likes', id]);
+        queryClient.invalidateQueries(["likes", id]);
       },
       onError: (error) => {
         console.log(error);

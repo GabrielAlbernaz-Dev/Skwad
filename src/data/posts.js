@@ -39,6 +39,62 @@ export async function getPosts() {
     }
 }
 
+export async function getNotifications(userPostId,username) {
+  console.log(userPostId)
+  try {
+    const notifyLikesQuery = query(
+      collection(firebaseDb, "notifyLikes"),
+      where('userPostId', '==', userPostId),
+      orderBy("timestamp", "desc")
+    );
+    const notifyLikesSnapshot = await getDocs(notifyLikesQuery);
+    const notifyLikes = notifyLikesSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      type: "like",
+      ...doc.data(),
+    }));
+
+    const postsQuery = query(
+      collection(firebaseDb, "posts"),
+      orderBy("timestamp", "desc")
+    );
+    const postsSnapshot = await getDocs(postsQuery);
+    const posts = postsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      type: "post",
+      ...doc.data(),
+    }));
+    const filteredPosts = posts.filter((post) =>
+      post.post.includes(`@${username}`)
+    );
+
+    const commentsQuery = query(
+      collection(firebaseDb, "posts"),
+      where("isComment", "==", true),
+      where("postParentUserId", "==", userPostId),
+      orderBy("timestamp", "desc")
+    );
+    const commentsSnapshot = await getDocs(commentsQuery);
+    const comments = commentsSnapshot.docs.map((doc) => ({
+      id: doc.id,
+      type: "comment",
+      ...doc.data(),
+    }));
+
+    return {
+      notifyLikes,
+      posts: filteredPosts,
+      comments:comments
+    };
+  } catch (error) {
+    console.error('Erro to get notifications:', error);
+    return {
+      notifyLikes: [],
+      posts: [],
+    };
+  }
+}
+
 export async function getComments(id) {
   try {
     const q = query(

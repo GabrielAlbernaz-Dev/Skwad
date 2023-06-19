@@ -22,7 +22,7 @@ const Post = () => {
   
       fetchPost();
     }, [id]);
-  
+
     return (
       <>
         <ContentContainer>
@@ -37,7 +37,7 @@ const Post = () => {
                     time={getPostTimeDiff(post?.timestamp).length ? getPostTimeDiff(post?.timestamp) : null} 
                     title={post.name} text={post.post}
                     />
-                <PostBox style={{marginTop:15}} parentId={id} refetchData={refetch} placeholder={'Type your commment'} maxLength={200} comment={true} src={profileDefaultImage} />
+                <PostBox style={{marginTop:15}} parentId={id} parentUserId={post.userId} refetchData={refetch} placeholder={'Type your commment'} maxLength={200} comment={true} src={profileDefaultImage} />
                 <h2 className="commentsTitle">Comments</h2>
                 {isLoading ? <Loading loading={isLoading}/> : <PostList data={comments} type="comment"/>}
             </>
