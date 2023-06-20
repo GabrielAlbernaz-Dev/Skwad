@@ -47,7 +47,6 @@ const EditProfile = () => {
       reset();
       modalSettings.closeModalAfterSubmit();
       navigate(0);
-      navigate(`/profile/${profileId}?redirect=true`);
     }
   } 
 

@@ -1,17 +1,15 @@
 import React, { useContext, useEffect } from 'react';
 import ProfileHeader from '../../layouts/ProfileHeader/ProfileHeader';
 import ContentContainer from '../../layouts/ContentContainer/ContentContainer';
-import PostItem from '../../components/Post/PostItem';
 import ProfileTabs from '../../components/ProfileTabs/ProfileTabs';
 import { useState } from 'react';
 import PostList from '../../components/Post/PostList';
 import Head from '../../helper/Head';
-import profilePhoto from '../../assets/profile-photo.jpeg';
 import { getLikedPostsByUser, getPostsByUserId, getPosts, getComments, getCommentsByUserId } from '../../data/posts';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { useLocation, useParams } from 'react-router-dom';
+import { useMutation} from '@tanstack/react-query';
+import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
-import { collection, doc, getDoc, getDocs, query, where } from 'firebase/firestore';
+import { collection,getDocs, query, where } from 'firebase/firestore';
 import { firebaseDb } from '../../config/firebase';
 import Loading from '../../components/Loading/Loading';
 import { getProfileInfoById } from '../../data/profile';
@@ -29,9 +27,7 @@ const Profile = () => {
   const [currentFollowsCount, setCurrentFollowsCount] = useState(0);
   const [currentProfileLikes, setCurrentProfileLikes] = useState(0);
   const [currentProfileInfo, setCurrentProfileInfo] = useState(null);
-  const [profileLogged,setProfileLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const redirect = new URLSearchParams(location.search).get('redirect');
 
   useEffect(() => {
     setIsLoading(true);
@@ -62,7 +58,6 @@ const Profile = () => {
         const postsCommmentsData = await getCommentsByUserId(profileInfoData?.userId)
         setPostsProfileComments(postsCommmentsData);
 
-        setProfileLogged(profileInfo?.userId === profileInfoData?.userId);
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -111,7 +106,7 @@ const Profile = () => {
           followers={currentFollowersCount}
           likes={currentProfileLikes}
           description={id ? currentProfileInfo?.bio : profileInfo?.bio}
-          profileLogged={redirect ? true : profileLogged}
+          profileLogged={profileInfo?.id === id}
           handleFollow={handleFollow}
           isFollowing={followingProfile} 
         />
