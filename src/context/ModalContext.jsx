@@ -18,6 +18,11 @@ export const ModalStorage = ({children}) => {
     closeModal: function({currentTarget}) {
       setModalComponent(null);
       setShowModal(false);
+    },
+
+    closeModalAfterSubmit() {
+      setModalComponent(null);
+      setShowModal(false);
     }
   }
 

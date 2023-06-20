@@ -31,6 +31,7 @@ const Profile = () => {
   const [currentProfileInfo, setCurrentProfileInfo] = useState(null);
   const [profileLogged,setProfileLogged] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const redirect = new URLSearchParams(location.search).get('redirect');
 
   useEffect(() => {
     setIsLoading(true);
@@ -109,10 +110,10 @@ const Profile = () => {
           following={currentFollowsCount}
           followers={currentFollowersCount}
           likes={currentProfileLikes}
-          description={'Lorem ipsum'}
-          profileLogged={profileLogged}
+          description={id ? currentProfileInfo?.bio : profileInfo?.bio}
+          profileLogged={redirect ? true : profileLogged}
           handleFollow={handleFollow}
-          isFollowing={followingProfile}
+          isFollowing={followingProfile} 
         />
         <ProfileTabs active={activeTabs} setActive={setActiveTabs} />
         {isLoading ? (

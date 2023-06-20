@@ -6,7 +6,7 @@ import formStyles from '../../pages/Auth/Auth.module.scss';
 import { AiOutlineMail,AiOutlineUser } from 'react-icons/ai'
 import { BsKey } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { DevTool } from '@hookform/devtools';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import '../../utilities.scss';
@@ -17,7 +17,6 @@ import { addDoc, collection, doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const AuthForm = ({isRegister,title,subtitle}) => {
     const {login,logout} = useContext(UserContext);
-    const navigate = useNavigate();
     const [fieldStates, setFieldStates] = useState({
         email: false,
         password: false,
