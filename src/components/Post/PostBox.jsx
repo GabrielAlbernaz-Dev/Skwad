@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState} from 'react'
+import React, { useContext, useEffect, useRef} from 'react'
 import styles from './Post.module.scss'
 import { Link } from 'react-router-dom'
 import SmallButton from '../Button/SmallButton'
@@ -14,7 +14,6 @@ import EmojiPost from '../Emoji/EmojiPost';
 const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,refetchData,...props}) => {  
   const{register,handleSubmit,setValue, watch,reset} = useForm();
   const {profileInfo} = useContext(UserContext);
-  const [isPosting, setIsPosting] = useState(false);
   const maxCharacters = maxLength;
   const postFieldRef = useRef(null);
   const postFieldValue = watch('post', '');
@@ -37,18 +36,16 @@ const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,re
     onSuccess: (result) => {
       refetchData();
       reset();
-      setIsPosting(false);
     },
     onError: (error) => {
       console.log(error);
       console.log(mutation.error);
       reset();
-      setIsPosting(false);
     },
   });
   
+
   function onSubmit(data) {
-      setIsPosting(true);
       mutation.mutate(data)
   };
 
@@ -94,7 +91,7 @@ return (
                 </div>
                 <div className={styles.postFieldSection}>
                     <p className={styles.counterFieldLength}>{postFieldValue ? postFieldValue.length : 0}/<span>{maxCharacters}</span></p>
-                    <SmallButton type="submit" primary={true} text={isPosting ? 'Posting...' : (comment ? 'Comment' : 'Post')} disabled={isPosting} />
+                    <SmallButton type="submit" primary={true} text={comment ? 'Comment' : 'Post'}/>
                 </div>
             </div>
         </div>
