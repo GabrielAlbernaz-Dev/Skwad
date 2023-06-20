@@ -38,7 +38,7 @@ const Search = () => {
   return (
     <section className={styles.searchItem}>
       <SearchBar onKeyUp={handleSearch} placeholder="Search Posts and Accounts">
-        {searchQuery.length && <SearchList setQueryValue={setSearchQuery} profiles={profilesFilter} posts={postsFilter} />}
+        {searchQuery.length > 0 && <SearchList setQueryValue={setSearchQuery} profiles={profilesFilter} posts={postsFilter} />}
       </SearchBar>
     </section>
   );

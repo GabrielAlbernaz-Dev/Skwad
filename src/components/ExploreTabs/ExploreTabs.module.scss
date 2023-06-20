@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+
+.exploreTabsContainer {
+    width: 100%;
+    display:flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 1.4rem;
+    .tabItem {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:1rem;
+        flex:1;
+        font-size: 1.8rem;
+        color: $light;
+        cursor: pointer;
+    }
+}
