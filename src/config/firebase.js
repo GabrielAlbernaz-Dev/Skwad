@@ -2,14 +2,23 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
+const {
+    VITE_BACKEND_API_KEY,
+    VITE_BACKEND_AUTH_DOMAIN,
+    VITE_BACKEND_PROJECT_ID,
+    VITE_BACKEND_STORAGE_BUCKET,
+    VITE_BACKEND_MESSAGING_SENDER_ID,
+    VITE_BACKEND_APP_ID,
+} = import.meta.env;
+  
 const firebaseConfig = {
-    apiKey: "AIzaSyC1d--vLnA3iIvkX79qGHKhsfk_Q3Pz1jg",
-    authDomain: "skwad-backend.firebaseapp.com",
-    projectId: "skwad-backend",
-    storageBucket: "skwad-backend.appspot.com",
-    messagingSenderId: "236713124180",
-    appId: "1:236713124180:web:8ebc0f6c900608018328c1"
-};
+    apiKey: VITE_BACKEND_API_KEY,
+    authDomain: VITE_BACKEND_AUTH_DOMAIN,
+    projectId: VITE_BACKEND_PROJECT_ID,
+    storageBucket: VITE_BACKEND_STORAGE_BUCKET,
+    messagingSenderId: VITE_BACKEND_MESSAGING_SENDER_ID,
+    appId: VITE_BACKEND_APP_ID,
+};  
 
 // Initialize Firebase
 export const firebaseApp = initializeApp(firebaseConfig);
