@@ -75,11 +75,9 @@ const EditProfile = () => {
 
   function handleImageUpload(event) {
     const file = event.target.files[0];
-    console.log(file)
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        console.log('Teste')
         setSelectedImage(reader.result);
       };
       reader.readAsDataURL(file);
