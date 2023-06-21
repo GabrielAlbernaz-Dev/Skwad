@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
 import PostBox from '../../components/Post/PostBox'
 import ContentContainer from '../../layouts/ContentContainer/ContentContainer'
@@ -14,11 +14,6 @@ const Posts = () => {
     const searchParams = new URLSearchParams(location.search);
     const queryParam = searchParams.get('q');
     const { data: hashtagPosts, isLoading,refetch} = useQuery(['hashtagPosts', queryParam], () => getPostsByHashtag(queryParam));
-
-    useEffect(() => {
-        console.log(queryParam)
-        console.log(hashtagPosts)
-    }, [queryParam]);
 
     return (
       <>

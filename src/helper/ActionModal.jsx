@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import Modal from '../components/Modal/Modal'
 import { ModalContext } from '../context/ModalContext'
+import PostShare from '../components/Post/PostShare';
 
 const ActionModal = () => {
   const { modalComponent } = useContext(ModalContext);

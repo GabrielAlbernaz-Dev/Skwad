@@ -7,10 +7,13 @@ import { useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import { firebaseDb } from '../../config/firebase';
 import { collection,doc,getDocs,query, where, updateDoc, addDoc, deleteDoc,serverTimestamp } from 'firebase/firestore';
 import { UserContext } from '../../context/UserContext';
+import { getCommentsCount, getLikesCount } from '../../data/posts';
 
-const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isParent }) => {
+const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isParent}) => {
   const { profileInfo } = useContext(UserContext);
   const { modalSettings } = useContext(ModalContext);
+  const [likesCount, setLikesCount] = useState(0);
+  const [commentsCount, setCommentsCount] = useState(0);
   const [profileId,setProfileId] = useState(null);
 
   useEffect(() => {
@@ -24,7 +27,15 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
         }
       }
     }
+    async function fetchCounts() {
+      const likesCount = await getLikesCount(id);
+      setLikesCount(likesCount);
+
+      const commentsCount = await getCommentsCount(id);
+      setCommentsCount(commentsCount);
+    }
     fetchProfileId();
+    fetchCounts();
   }, [id]);
 
   const queryLikedPost = async (postId) => {
@@ -83,9 +94,11 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
       }
     },
     {
-      onSuccess: (result) => {
+      onSuccess: async (result) => {
         console.log(result);
-        queryClient.invalidateQueries(["likes", id]);
+        queryClient.invalidateQueries(['likes', id]);
+        const likesCount = await getLikesCount(id);
+        setLikesCount(likesCount);
       },
       onError: (error) => {
         console.log(error);
@@ -95,9 +108,19 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
 
   const { data: liked } = useQuery(['likes', id], () => queryLikedPost(id));
 
-  const handleLikePost = () => {
+  const handleLikePost = async () => {
     mutation.mutate(id);
   };
+
+  function formatPostNumber(number) {
+    if (number >= 1000 && number < 1000000) {
+      return `${(number / 1000).toFixed(1)}k`;
+    } else if (number >= 1000000) {
+      return `${(number / 1000000).toFixed(1)}M`;
+    } else {
+      return number.toString();
+    }
+  }
 
   if (!(title && profileUsername) ?? !src) {
     return null;
@@ -126,10 +149,12 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
       <div className={styles.postActionOptions}>
         <i className={liked ? 'primary' : ''} onClick={handleLikePost}>
           <FaHeart />
+          {likesCount ? <span>{formatPostNumber(likesCount)}</span> : ''}
         </i>
         {isParent ? '' : (<Link className={styles.postCommentIcon} to={`/posts/${id}`}>
           <i>
             <FaComment />
+            {commentsCount ? <span>{formatPostNumber(commentsCount)}</span> : ''}
           </i>
         </Link>)}
         <i onClick={modalSettings.handleModal} data-modal-component="reply">

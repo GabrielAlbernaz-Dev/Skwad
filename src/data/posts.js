@@ -32,7 +32,6 @@ export async function getPosts() {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log(posts)
       return posts;
     } catch (error) {
       console.error('Error to get posts:', error);
@@ -205,6 +204,35 @@ export async function getLikedPostsByUser(id) {
   } catch (error) {
     console.error('Error fetching liked posts:', error);
     return [];
+  }
+}
+
+export async function getLikesCount(postId) {
+  try {
+    const likesQuery = query(
+      collection(firebaseDb, 'likes'),
+      where('postId', '==', postId)
+    );
+    const likesSnapshot = await getDocs(likesQuery);
+    return likesSnapshot.size;
+  } catch (error) {
+    console.error('Erro ao obter a contagem de likes:', error);
+    return 0;
+  }
+}
+
+export async function getCommentsCount(postId) {
+  try {
+    const commentsQuery = query(
+      collection(firebaseDb, 'posts'),
+      where('postParent', '==', postId),
+      where('isComment', '==', true)
+    );
+    const commentsSnapshot = await getDocs(commentsQuery);
+    return commentsSnapshot.size;
+  } catch (error) {
+    console.error('Erro ao obter a contagem de comentários:', error);
+    return 0;
   }
 }
 
