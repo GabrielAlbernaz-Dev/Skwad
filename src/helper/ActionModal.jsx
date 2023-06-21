@@ -4,7 +4,7 @@ import { ModalContext } from '../context/ModalContext'
 import PostShare from '../components/Post/PostShare';
 
 const ActionModal = () => {
-  const { modalComponent } = useContext(ModalContext);
+  const { modalComponent,modalPostLink } = useContext(ModalContext);
 
   switch (modalComponent) {
     case 'edit-profile':
@@ -16,7 +16,7 @@ const ActionModal = () => {
     case 'reply':
       return (
         <Modal>
-          <PostShare/>
+          <PostShare link={modalPostLink}/>
         </Modal>
       );
     default:

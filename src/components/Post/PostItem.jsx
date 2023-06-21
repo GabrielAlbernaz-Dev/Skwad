@@ -157,7 +157,7 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
             {commentsCount ? <span>{formatPostNumber(commentsCount)}</span> : ''}
           </i>
         </Link>)}
-        <i onClick={modalSettings.handleModal} data-modal-component="reply">
+        <i onClick={modalSettings.handleModal} data-modal-post-link={`${window.location.origin}/posts/${id}`} data-modal-component="reply">
           <FaShare />
         </i>
       </div>
