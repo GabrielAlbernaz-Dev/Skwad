@@ -9,6 +9,7 @@ import { updateProfileInfos } from '../../data/profile';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { TbCameraPlus } from 'react-icons/tb';
 
 const EditProfile = () => {
   const { modalSettings } = useContext(ModalContext);
@@ -20,6 +21,7 @@ const EditProfile = () => {
   const profileBioValue = watch('bio','');
   const maxCharacters = 150;
   const password = watch('password');
+  const [selectedImage, setSelectedImage] = useState(null);
 
   async function onSubmit(data) {
     setIsLoading(true);
@@ -71,9 +73,39 @@ const EditProfile = () => {
     return true;
   }
 
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    console.log(file)
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        console.log('Teste')
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.profileEditContainer}>
       <h2 className={styles.profileEditTitle}>Edit Profile Data</h2>
+      <label htmlFor="uploadImage" className={styles.profileUploadImageContainer}>
+        <TbCameraPlus className={styles.profileUploadImageCam}/>
+        {selectedImage && (
+          <img
+            src={selectedImage}
+            alt="Uploaded Profile Image"
+            className={styles.profileUploadedImage}
+          />
+        )}
+        <input
+          id="uploadImage"
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          style={{ display: 'none' }}
+        />
+      </label>
       <input className="controlDefault" type="text" placeholder="Name" {...register('name')} />
       <input className="controlDefault" type="email" placeholder="Email" {...register('email')} />
       <input className="controlDefault" type="password" placeholder="Password" {...register('password')} />
