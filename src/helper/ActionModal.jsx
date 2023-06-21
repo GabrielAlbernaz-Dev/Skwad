@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import Modal from '../components/Modal/Modal'
 import { ModalContext } from '../context/ModalContext'
-import PostShare from '../components/Post/PostShare';
+import PostShare from '../components/Post/PostShare'; 
+import EditProfile from '../layouts/Profile/EditProfile'
 
 const ActionModal = () => {
   const { modalComponent,modalPostLink } = useContext(ModalContext);
@@ -10,7 +11,7 @@ const ActionModal = () => {
     case 'edit-profile':
       return (
         <Modal>
-          <EditProfile/>
+          <EditProfile/> 
         </Modal>
       );
     case 'reply':

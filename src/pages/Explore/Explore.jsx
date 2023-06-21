@@ -42,8 +42,12 @@ const Explore = () => {
       <Head title="Explore" description="Explore page" />
       <ContentContainer>
         <ExploreTabs active={activeTabs} setActive={setActiveTabs} />
-        {isLoading ? ( 
-          <div className="flex-row-center"><Loading loading={isLoading} /></div> 
+        {isLoading ? (
+          <div className="flex-row-center">
+            <Loading loading={isLoading} />
+          </div>
+        ) : data[activeTabs].length === 0 ? (
+          <h1 className="noResults">No Results...</h1>
         ) : (
           <ListExplorer items={data[activeTabs]} label={camelCaseLabel} />
         )}
