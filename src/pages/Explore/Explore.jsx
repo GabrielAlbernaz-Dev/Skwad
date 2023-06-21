@@ -1,52 +1,55 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ContentContainer from '../../layouts/ContentContainer/ContentContainer'
 import ListExplorer from '../../components/ListExplorer/ListExplorer'
 import Head from '../../helper/Head'
 import ExploreTabs from '../../components/ExploreTabs/ExploreTabs'
+import { getExploreReccomendations, getExploreTrending } from '../../data/explore'
+import Loading from '../../components/Loading/Loading'
+
 
 const Explore = () => {
   const [activeTabs, setActiveTabs] = useState('trending');
+  const [trendingData, setTrendingData] = useState([]);
+  const [recommendationsData, setRecommendationsData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true); 
   const camelCaseLabel = activeTabs.charAt(0).toUpperCase() + activeTabs.slice(1);
 
-  const exploreItems = [
-    {id:1,href:'/post-1',title:'CBLOL',views:5033},
-    {id:2,href:'/post-2',title:'LCK',views:1554},
-    {id:3,href:'/post-3',title:'CCXP',views:1341},
-    {id:4,href:'/post-4',title:'CCXP',views:1341},
-    {id:5,href:'/post-5',title:'CCXP',views:1341}
-  ];
+  useEffect(() => {
+    async function fetchItems() {
+      setIsLoading(true); 
+      try {
+        const tredingResponse = await getExploreTrending();
+        setTrendingData(tredingResponse);
 
-  const exploreItems2 = [
-    {id:1,href:'/post-1',title:'LCS',views:5033},
-    {id:2,href:'/post-2',title:'LCK',views:1554},
-    {id:3,href:'/post-3',title:'CCXP',views:1341},
-    {id:4,href:'/post-4',title:'CCXP',views:1341},
-    {id:5,href:'/post-5',title:'CCXP',views:1341}
-  ];
-
-  const exploreItems3 = [
-    {id:1,href:'/post-1',title:'LPL',views:5033},
-    {id:2,href:'/post-2',title:'LCK',views:1554},
-    {id:3,href:'/post-3',title:'CCXP',views:1341},
-    {id:4,href:'/post-4',title:'CCXP',views:1341},
-    {id:5,href:'/post-5',title:'CCXP',views:1341}
-  ];
+        const recommendationResponse = await getExploreReccomendations();
+        setRecommendationsData(recommendationResponse);
+        setIsLoading(false);
+      } catch (error) {
+        console.error('Erro ao buscar os dados:', error);
+        setIsLoading(false);
+      }
+    }
+    fetchItems();
+  }, []);
 
   const data = {
-    trending: exploreItems,
-    recommendations: exploreItems2,
-    news: exploreItems3,
+    trending: trendingData,
+    recommendations: recommendationsData,
   };
 
   return (
     <>
-      <Head title="Explore" description="Explore page"/>
+      <Head title="Explore" description="Explore page" />
       <ContentContainer>
-        <ExploreTabs active={activeTabs} setActive={setActiveTabs}/>
-        <ListExplorer items={data[activeTabs]} label={camelCaseLabel}/>
-      </ContentContainer>    
+        <ExploreTabs active={activeTabs} setActive={setActiveTabs} />
+        {isLoading ? ( 
+          <div className="flex-row-center"><Loading loading={isLoading} /></div> 
+        ) : (
+          <ListExplorer items={data[activeTabs]} label={camelCaseLabel} />
+        )}
+      </ContentContainer>
     </>
-  )
-}
+  );
+};
 
-export default Explore
+export default Explore;

@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query';
 import React, { createContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { firebaseAuth, firebaseDb } from '../config/firebase';

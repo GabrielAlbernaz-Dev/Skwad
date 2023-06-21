@@ -16,6 +16,7 @@ import Auth from './pages/Auth/Auth'
 import ActionModal from './helper/ActionModal'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import Post from './pages/Post/Post'
+import Posts from './pages/Post/Posts'
 
 const queryClient = new QueryClient();
 
@@ -39,6 +40,7 @@ function App() {
                     <Route path="/notifications" element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
                     <Route path="/profile" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
                     <Route path="/profile/:id" element={<ProtectedRoute><Profile/></ProtectedRoute>}/>
+                    <Route path="/posts/" element={<ProtectedRoute><Posts/></ProtectedRoute>}/>
                     <Route path="/posts/:id" element={<ProtectedRoute><Post/></ProtectedRoute>}/>
                     <Route path="/auth/*" element={<Auth/>}/>
                     <Route path="*" element={<Navigate to="/"/>}/>

@@ -5,7 +5,7 @@ import ProfileTabs from '../../components/ProfileTabs/ProfileTabs';
 import { useState } from 'react';
 import PostList from '../../components/Post/PostList';
 import Head from '../../helper/Head';
-import { getLikedPostsByUser, getPostsByUserId, getPosts, getComments, getCommentsByUserId } from '../../data/posts';
+import { getLikedPostsByUser, getPostsByUserId, getCommentsByUserId } from '../../data/posts';
 import { useMutation} from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';

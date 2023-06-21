@@ -1,23 +1,26 @@
 import React from 'react'
 import styles from './ListExplorer.module.scss'
-import { GoMention } from 'react-icons/go';
+import { CgList } from 'react-icons/cg';
 import { Link } from 'react-router-dom'
 
 const ListExplorer = ({items,label}) => {
   return (
     <ol className={styles.listExplorer}>
-        {items && items.map(({id,href,title,views},i) => 
+        {items && items.map(({id,href,title,counts},i) => 
             <li key={id}>
                 <span className={styles.listPosition}>{i +1}</span>
-                <Link className={styles.listContent} href={href}>
+                <Link className={styles.listContent} to={href}>
                     <div>
                       <span className={styles.listContentCategory}>{label}</span>
                       <h2 className={styles.listContentTitle}>{title}</h2>
                     </div>
-                    <p className={styles.listContentViews}>
-                      <GoMention/>
-                      {views}
-                    </p>
+                    <div className={styles.listContentCounts}>
+                      <div className={styles.listContentCountsIcon}>
+                        {counts}
+                        <CgList/>
+                      </div>
+                      <p>Posts</p>
+                    </div>
                 </Link>
             </li>
         )}

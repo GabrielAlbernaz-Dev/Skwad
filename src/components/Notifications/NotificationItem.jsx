@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { FaHeart,FaComment } from 'react-icons/fa';
 import styles from './Notifications.module.scss'
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import { collection, getDocs, query, where } from 'firebase/firestore';
 import { firebaseDb } from '../../config/firebase';
 

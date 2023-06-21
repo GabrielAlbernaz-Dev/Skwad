@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext } from 'react'
 import styles from './Modal.module.scss'
 import { ModalContext } from '../../context/ModalContext';
 import CloseButtonModal from './CloseButtonModal';

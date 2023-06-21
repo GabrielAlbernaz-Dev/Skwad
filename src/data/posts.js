@@ -32,11 +32,36 @@ export async function getPosts() {
         id: doc.id,
         ...doc.data(),
       }));
+      console.log(posts)
       return posts;
     } catch (error) {
-      console.error('Erro to get posts:', error);
+      console.error('Error to get posts:', error);
       return [];
     }
+}
+
+export async function getPostsByHashtag(hashtag) {
+  try {
+    const q = query(
+      collection(firebaseDb, 'posts'),
+      orderBy('timestamp', 'desc')
+    );
+    const response = await getDocs(q);
+    const posts = response.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    const filteredPosts = posts.filter((post) => {
+      const hashtags = post.post || [];
+      return hashtags.includes(hashtag);
+    });
+
+    return filteredPosts;
+  } catch (error) {
+    console.error('Erro ao obter posts por hashtag:', error);
+    return [];
+  }
 }
 
 export async function getNotifications(userPostId,username) {
@@ -86,7 +111,7 @@ export async function getNotifications(userPostId,username) {
       comments:comments
     };
   } catch (error) {
-    console.error('Erro to get notifications:', error);
+    console.error('Error to get notifications:', error);
     return {
       notifyLikes: [],
       posts: [],
@@ -109,7 +134,7 @@ export async function getComments(id) {
     }));
     return posts;
   } catch (error) {
-    console.error('Erro to get posts:', error);
+    console.error('Error to get posts:', error);
     return [];
   }
 }
@@ -129,7 +154,7 @@ export async function getPostsByUserId(userId) {
     }));
     return posts;
   } catch (error) {
-    console.error('Erro to get posts:', error);
+    console.error('Error to get posts:', error);
     return [];
   }
 }
@@ -149,7 +174,7 @@ export async function getCommentsByUserId(userId) {
     }));
     return comments;
   } catch (error) {
-    console.error('Erro to get posts:', error);
+    console.error('Error to get posts:', error);
     return [];
   }
 }

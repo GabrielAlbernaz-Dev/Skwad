@@ -1,7 +1,6 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import PostItem from './PostItem'
 import profileDefaultImage from '../../assets/default-avatar.jpg';
-import { UserContext } from '../../context/UserContext';
 import { getPostTimeDiff } from '../../data/posts';
 
 const PostList = ({data,type}) => {

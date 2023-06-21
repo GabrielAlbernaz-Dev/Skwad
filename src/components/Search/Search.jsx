@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { collection, getDocs, query, where } from 'firebase/firestore';
+import { collection, getDocs, query} from 'firebase/firestore';
 import SearchBar from './SearchBar';
 import SearchList from './SearchList';
 import styles from './Search.module.scss';

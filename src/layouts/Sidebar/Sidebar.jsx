@@ -5,7 +5,6 @@ import { FaHashtag, FaUser } from 'react-icons/fa';
 import { IoMdNotifications } from 'react-icons/io';
 import { AiFillHome } from 'react-icons/ai';
 import FollowList from '../../components/FollowList/FollowList';
-import profileUser from '../../assets/default-avatar.jpg';
 import { UserContext } from '../../context/UserContext';
 import { getProfileInfoByUserId } from '../../data/profile';
 import Loading from '../../components/Loading/Loading';

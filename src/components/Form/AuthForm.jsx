@@ -8,7 +8,7 @@ import { BsKey } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
 import { DevTool } from '@hookform/devtools';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import '../../utilities.scss';
 import { UserContext } from '../../context/UserContext';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';

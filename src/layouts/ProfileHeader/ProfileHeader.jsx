@@ -3,7 +3,6 @@ import styles from './ProfileHeader.module.scss'
 import MediumButton from '../../components/Button/MediumButton'
 import { ModalContext } from '../../context/ModalContext'
 import profilePhoto from '../../assets/profile-photo.jpeg'
-import { UserContext } from '../../context/UserContext'
 
 const ProfileHeader = ({name,username,following,followers,likes,description,profileLogged,isFollowing,handleFollow}) => {
   const {modalSettings} = useContext(ModalContext);
