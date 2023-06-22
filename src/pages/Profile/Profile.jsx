@@ -10,10 +10,11 @@ import { useMutation} from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../context/UserContext';
 import { collection,getDocs, query, where } from 'firebase/firestore';
-import { firebaseDb } from '../../config/firebase';
+import { firebaseDb} from '../../config/firebase';
 import Loading from '../../components/Loading/Loading';
 import { getProfileInfoById } from '../../data/profile';
 import { countFollowersById, countFollowsById, followProfileById,isFollowingProfile, unfollowProfileById } from '../../data/follow';
+import { getProfilePhotoById } from '../../helper/file';
 
 const Profile = () => {
   const [activeTabs, setActiveTabs] = useState('posts');
@@ -27,6 +28,7 @@ const Profile = () => {
   const [currentFollowsCount, setCurrentFollowsCount] = useState(0);
   const [currentProfileLikes, setCurrentProfileLikes] = useState(0);
   const [currentProfileInfo, setCurrentProfileInfo] = useState(null);
+  const [profileImage, setProfileImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -57,6 +59,9 @@ const Profile = () => {
 
         const postsCommmentsData = await getCommentsByUserId(profileInfoData?.userId)
         setPostsProfileComments(postsCommmentsData);
+
+        const profilePhotoUrl = await getProfilePhotoById(id)
+        setProfileImage(profilePhotoUrl);
 
         setIsLoading(false);
       } catch (error) {
@@ -101,6 +106,7 @@ const Profile = () => {
         <ProfileHeader
           id={id}
           name={id ? currentProfileInfo?.name : profileInfo?.name}
+          src={profileImage}
           username={id ? currentProfileInfo?.username : profileInfo?.username}
           following={currentFollowsCount}
           followers={currentFollowersCount}

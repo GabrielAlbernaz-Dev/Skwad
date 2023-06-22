@@ -44,7 +44,6 @@ const Notifications = () => {
             return <PostItem 
                       key={notification.id} 
                       id={notification.id}
-                      src={profileDefaultImage}
                       time={notification.timestamp.length ? getPostTimeDiff(notification.timestamp) : null}
                       userPostId={notification.userId}
                       title={notification.name}

@@ -120,6 +120,14 @@
     font-weight:600; 
 }
 
+.has-image {
+    background: transparent!important;
+    border: 2px solid $primary;
+    img {
+        opacity: .5;
+    }
+}
+
 .flex-row-center {
     display: flex;
     flex-direction: row;

@@ -2,16 +2,16 @@ import React, { useContext } from 'react'
 import styles from './ProfileHeader.module.scss'
 import MediumButton from '../../components/Button/MediumButton'
 import { ModalContext } from '../../context/ModalContext'
-import profilePhoto from '../../assets/profile-photo.jpeg'
+import defaultPhoto from '../../assets/default-avatar.jpg'
 
-const ProfileHeader = ({name,username,following,followers,likes,description,profileLogged,isFollowing,handleFollow}) => {
+const ProfileHeader = ({name,src,username,following,followers,likes,description,profileLogged,isFollowing,handleFollow}) => {
   const {modalSettings} = useContext(ModalContext);
 
   return (
     <header className={styles.profileHeader}>
         <section className={styles.profileHeaderInfo}>
             <div className={styles.profileHeaderPhotoContainer}>
-                <img src={profilePhoto} alt="" />
+                <img src={src ? src : defaultPhoto} alt="" />
             </div>
             <div className={styles.profileHeaderContent}>
                 <h2 className={styles.profileHeaderName}>{name}</h2>

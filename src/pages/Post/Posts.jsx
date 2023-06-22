@@ -18,7 +18,6 @@ const Posts = () => {
     return (
       <>
         <ContentContainer>
-            <h1 style={{color:'#fff'}}>Teste</h1>
             {isLoading ? <Loading loading={isLoading}/> : <PostList data={hashtagPosts} type="posts"/>}
         </ContentContainer>
       </>

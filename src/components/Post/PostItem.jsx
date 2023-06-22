@@ -5,9 +5,11 @@ import { FaHeart,FaComment,FaShare } from 'react-icons/fa';
 import { ModalContext } from '../../context/ModalContext';
 import { useMutation, useQuery, useQueryClient} from '@tanstack/react-query';
 import { firebaseDb } from '../../config/firebase';
-import { collection,doc,getDocs,query, where, updateDoc, addDoc, deleteDoc,serverTimestamp } from 'firebase/firestore';
+import { collection,doc,getDocs,query, where, addDoc, deleteDoc,serverTimestamp } from 'firebase/firestore';
+import profileDefaultImage from '../../assets/default-avatar.jpg';
 import { UserContext } from '../../context/UserContext';
 import { getCommentsCount, getLikesCount } from '../../data/posts';
+import { getProfilePhotoById } from '../../helper/file';
 
 const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isParent}) => {
   const { profileInfo } = useContext(UserContext);
@@ -15,15 +17,18 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
   const [likesCount, setLikesCount] = useState(0);
   const [commentsCount, setCommentsCount] = useState(0);
   const [profileId,setProfileId] = useState(null);
+  const [profileImage,setProfileImage] = useState(null);
 
   useEffect(() => {
-    async function fetchProfileId() {
+    async function fetchProfileIdAndPhoto() {
       if (profileInfo) {
         const profileQuery = query(collection(firebaseDb, "profileInfo"), where("userId", "==", userPostId));
         const profileDocs = await getDocs(profileQuery);
         if (!profileDocs.empty) {
           const profileDoc = profileDocs.docs[0];
-          setProfileId(profileDoc.id)
+          setProfileId(profileDoc.id);
+          const profilePhotoUrl = await getProfilePhotoById(profileDoc.id);
+          setProfileImage(profilePhotoUrl);
         }
       }
     }
@@ -34,7 +39,7 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
       const commentsCount = await getCommentsCount(id);
       setCommentsCount(commentsCount);
     }
-    fetchProfileId();
+    fetchProfileIdAndPhoto();
     fetchCounts();
   }, [id]);
 
@@ -129,7 +134,7 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
   return (
     <article className={styles.postItemContainer}>
       <Link to={`/profile/${profileId}`} className={styles.postProfilePicture}>
-        <img src={src} alt={src ? src.slice(0, 4) : ''} />
+        <img src={profileImage ? profileImage : profileDefaultImage} alt={profileImage ? profileImage.slice(0, 4) : profileDefaultImage.slice(0, 4)} />
       </Link>
       <div className={styles.postContent}>
         <Link to={`/profile/${profileId}`} className={styles.postProfileLink}>

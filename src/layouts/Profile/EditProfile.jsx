@@ -10,6 +10,9 @@ import { useState } from 'react';
 import { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TbCameraPlus } from 'react-icons/tb';
+import { firebaseStorage } from '../../config/firebase';
+import { ref, uploadBytes } from 'firebase/storage';
+import { b64ToBlob } from '../../helper/file';
 
 const EditProfile = () => {
   const { modalSettings } = useContext(ModalContext);
@@ -40,6 +43,12 @@ const EditProfile = () => {
         } else {
           await updateProfileInfos(profileId, null, bio);
         }
+      }
+
+      if (selectedImage) {
+        const imageBlob = b64ToBlob(selectedImage)
+        const storageRef = ref(firebaseStorage, `profile-images/${profileId}`);
+        await uploadBytes(storageRef, imageBlob);
       }
     } catch (error) {
       console.error('Error submitting profile data:', error);
@@ -87,7 +96,7 @@ const EditProfile = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.profileEditContainer}>
       <h2 className={styles.profileEditTitle}>Edit Profile Data</h2>
-      <label htmlFor="uploadImage" className={styles.profileUploadImageContainer}>
+      <label htmlFor="uploadImage" className={`${styles.profileUploadImageContainer} ${selectedImage && 'has-image'}`}>
         <TbCameraPlus className={styles.profileUploadImageCam}/>
         {selectedImage && (
           <img

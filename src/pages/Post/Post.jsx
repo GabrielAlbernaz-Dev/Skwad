@@ -32,7 +32,6 @@ const Post = () => {
                     id={post.id} 
                     isParent={true}
                     profileUsername={'@' + post.username} 
-                    src={profileDefaultImage} 
                     userPostId={post?.userId} 
                     time={getPostTimeDiff(post?.timestamp).length ? getPostTimeDiff(post?.timestamp) : null} 
                     title={post.name} text={post.post}
