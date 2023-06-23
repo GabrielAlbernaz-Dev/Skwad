@@ -59,6 +59,22 @@
                 }
             }
         }
+        .postBoxImage {
+            max-width: 8rem;
+            padding: 1rem;
+        }
+        .postBoxImageName {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            gap: 1rem;
+            -webkit-box-align: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            margin: 1rem;
+            font-weight: 600;
+            color: $light;
+        }
         .postProfilePicture {
             display: inline-block;
             width: 4.5rem;
@@ -171,9 +187,9 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
             flex-direction: row;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    align-items: flex-start;
     position: relative;
     padding: 1.6rem 0;
     @media(max-width:$md) {
@@ -260,6 +276,16 @@
             color: $gray;
             margin-top: 1rem;
         }
+        .postProfileImage {
+            display: block;
+            width: 100%;
+            border-radius: 1rem;
+            max-height: 65rem;
+            height: auto;
+            margin-bottom: .5rem;
+            -o-object-fit: cover;
+               object-fit: cover;
+        }
     }
 
     .postActionOptions {
@@ -270,11 +296,13 @@
         -webkit-box-direction: normal;
             -ms-flex-direction: column;
                 flex-direction: column;
-        gap: 1rem;
+        gap: 1.2rem;
         -webkit-box-align: center;
             -ms-flex-align: center;
                 align-items: center;
         color: $gray;
+        -ms-flex-item-align: end;
+            align-self: flex-end;
         @media(max-width:$md) {
             -ms-flex-direction: row;
             -webkit-box-orient: horizontal;
@@ -283,8 +311,9 @@
             -webkit-box-align: flex-start;
             -ms-flex-align: flex-start;
                 align-items: flex-start;
-            gap:2rem;
             padding-top: 1rem;
+            -ms-flex-item-align: start;
+                align-self: flex-start;
         }
 
         i,.postCommentIcon {
@@ -308,7 +337,7 @@
                 color: $primary;
             }
             span {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
         }
     }

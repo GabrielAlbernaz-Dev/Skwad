@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef} from 'react'
+import React, { useContext, useEffect, useRef, useState} from 'react'
 import styles from './Post.module.scss'
 import { Link } from 'react-router-dom'
 import SmallButton from '../Button/SmallButton'
@@ -6,9 +6,12 @@ import PostInputFile from './PostInputFile';
 import { useForm } from 'react-hook-form';
 import { useMutation } from '@tanstack/react-query';
 import { UserContext } from '../../context/UserContext';
-import { firebaseDb } from '../../config/firebase';
+import { firebaseDb, firebaseStorage } from '../../config/firebase';
 import { collection,addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 import EmojiPost from '../Emoji/EmojiPost';
+import { b64ToBlob } from '../../helper/file';
+import { ref, uploadBytes } from 'firebase/storage';
+import ModalImagePreview from '../Modal/ModalImagePreview';
 
 
 const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,refetchData,...props}) => {  
@@ -17,6 +20,9 @@ const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,re
   const maxCharacters = maxLength;
   const postFieldRef = useRef(null);
   const postFieldValue = watch('post', '');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedImageName, setSelectedImageName] = useState(null);
+  const [showImageModal, setShowImageModal] = useState(false);
 
   const mutation = useMutation({
     mutationFn: async (formData) => {
@@ -30,17 +36,29 @@ const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,re
         isComment: comment ? true : false,
         timestamp: serverTimestamp(),
       };
-      
-      return await addDoc(collection(firebaseDb, 'posts'), updatedFormData);
+
+      const docRef = await addDoc(collection(firebaseDb, 'posts'), updatedFormData);
+
+      if (selectedImage) {
+        const imageBlob = b64ToBlob(selectedImage) 
+        const storageRef = ref(firebaseStorage, `post-images/${docRef.id}`);
+        await uploadBytes(storageRef, imageBlob);
+      }
+
+      return docRef;
     },
     onSuccess: (result) => {
       refetchData();
       reset();
+      setSelectedImage(null);
+      setSelectedImageName(null);
     },
     onError: (error) => {
       console.log(error);
       console.log(mutation.error);
       reset();
+      setSelectedImage(null);
+      setSelectedImageName(null);
     },
   });
   
@@ -73,6 +91,18 @@ const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,re
     setValue('post', postFieldValue + emoji);
   }
 
+  function handleImageUpload(event) {
+    const file = event.target.files[0];
+    setSelectedImageName(file.name);
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
 return (
     <form onSubmit={handleSubmit(onSubmit)} {...props}>
         <div className={styles.postBoxContainer}>
@@ -82,11 +112,16 @@ return (
                 </Link>
                 <div className={styles.postBoxField}>
                     <textarea ref={postFieldRef} {...register('post')} onInput={handleTypePost} value={postFieldValue} maxLength={maxCharacters} className="scrollbarPrimary" placeholder={placeholder}></textarea>
+                    {selectedImage && <ModalImagePreview show={showImageModal} setShowModal={setShowImageModal} src={selectedImage}/>}
+                    {selectedImageName && <h1 className={styles.postBoxImageName}>
+                      {selectedImageName}
+                      <SmallButton type="button" primary={true} onClick={()=> setShowImageModal(true)} text="View" style={{fontSize:'1.4rem',padding:0}}/>
+                    </h1>}
                 </div>
             </div>
             <div className={styles.postBoxActionContainer}>
                 <div className={styles.postBoxActions}>
-                    <PostInputFile/>
+                    <PostInputFile onChange={handleImageUpload}/>
                     <EmojiPost onSelectEmoji={handleSelectEmoji}/>
                 </div>
                 <div className={styles.postFieldSection}>

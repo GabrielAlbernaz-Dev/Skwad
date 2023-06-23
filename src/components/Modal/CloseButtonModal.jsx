@@ -2,9 +2,9 @@ import React from 'react'
 import styles from './Modal.module.scss'
 import {CgClose} from 'react-icons/cg'
 
-const CloseButtonModal = ({handleClose}) => {
+const CloseButtonModal = ({handleClose,className,...props}) => {
   return (
-    <div className={styles.modalClose} onClick={handleClose}>
+    <div className={className ? className : styles.modalClose} onClick={handleClose}>
         <CgClose/>
     </div>
   )

@@ -2,7 +2,7 @@ import React from 'react'
 import styles from './Post.module.scss'
 import { FaImage } from 'react-icons/fa'
 
-const PostInputFile = () => {
+const PostInputFile = ({...props}) => {
   return (
     <>
         <label className={styles.postFileLabel} htmlFor="file-input">
@@ -12,7 +12,7 @@ const PostInputFile = () => {
             id="file-input"
             type="file"
             className={styles.postFileInput}
-        // onChange={handleFileUpload}
+            {...props}
         />
     </>
   )

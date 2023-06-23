@@ -9,7 +9,7 @@ import { collection,doc,getDocs,query, where, addDoc, deleteDoc,serverTimestamp 
 import profileDefaultImage from '../../assets/default-avatar.jpg';
 import { UserContext } from '../../context/UserContext';
 import { getCommentsCount, getLikesCount } from '../../data/posts';
-import { getProfilePhotoById } from '../../helper/file';
+import { getPostPhotoById, getProfilePhotoById } from '../../helper/file';
 
 const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isParent}) => {
   const { profileInfo } = useContext(UserContext);
@@ -18,6 +18,7 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
   const [commentsCount, setCommentsCount] = useState(0);
   const [profileId,setProfileId] = useState(null);
   const [profileImage,setProfileImage] = useState(null);
+  const [postImage,setPostImage] = useState(null);
 
   useEffect(() => {
     async function fetchProfileIdAndPhoto() {
@@ -32,6 +33,10 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
         }
       }
     }
+    async function fetchProfilePost() {
+      const postPhotoUrl = await getPostPhotoById(id);
+      setPostImage(postPhotoUrl);
+    }
     async function fetchCounts() {
       const likesCount = await getLikesCount(id);
       setLikesCount(likesCount);
@@ -40,6 +45,7 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
       setCommentsCount(commentsCount);
     }
     fetchProfileIdAndPhoto();
+    fetchProfilePost();
     fetchCounts();
   }, [id]);
 
@@ -149,7 +155,10 @@ const PostItem = ({ id, title, text, src, time, profileUsername,userPostId,isPar
             )}
           </p>
         </Link>
-        <p className={styles.postProfileDescription}>{text && text}</p>
+        <p className={styles.postProfileDescription}>
+          {postImage && <div><img className={styles.postProfileImage} src={postImage}/></div>}
+          {text && text}
+        </p>
       </div>
       <div className={styles.postActionOptions}>
         <i className={liked ? 'primary' : ''} onClick={handleLikePost}>

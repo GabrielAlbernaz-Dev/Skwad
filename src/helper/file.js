@@ -19,3 +19,13 @@ export async function getProfilePhotoById(id) {
         console.error('Error getting photo:', error);
     }
 }
+
+export async function getPostPhotoById(id) {
+    try {
+        const storageRef = ref(firebaseStorage, `post-images/${id}`);
+        const downloadUrl = await getDownloadURL(storageRef);
+        return downloadUrl;
+    } catch (error) {
+        console.error('Error getting photo:', error);
+    }
+}

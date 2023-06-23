@@ -32,6 +32,12 @@
             min-width: 30rem;
             max-width: 50rem;
         }
+        .modalPreviewImg {
+            display: block;
+            width: 100%;
+            -o-object-fit: cover;
+               object-fit: cover;
+        }
         .modalClose {
             position: absolute;
             top: .5rem;
@@ -41,9 +47,31 @@
             font-weight: 600;
             color: $light;  
             cursor: pointer;
+            -webkit-transition: all .2s;
+            -o-transition: all .2s;
             transition: all .2s;
             &:hover {
-                transform: scale(1.1);
+                -webkit-transform: scale(1.1);
+                    -ms-transform: scale(1.1);
+                        transform: scale(1.1);
+            }
+        }
+
+        .modalCloseImg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: $primary;
+            font-size: 2.4rem;
+            font-weight: 600;
+            color: $light;  
+            cursor: pointer;
+            padding: .5rem 1rem;
+            -webkit-transition: all .2s;
+            -o-transition: all .2s;
+            transition: all .2s;
+            &:hover {
+               background: $primary-hover;
             }
         }
     }
