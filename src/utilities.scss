@@ -72,6 +72,10 @@
     border-bottom: 2px solid $primary;
 }
 
+.bg-dark {
+    background-color: $dark;
+}
+
 .scrollbarPrimary {
     &::-webkit-scrollbar {
         width: .65rem;

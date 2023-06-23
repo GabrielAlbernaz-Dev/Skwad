@@ -1,4 +1,4 @@
-import { collection, getDoc, doc ,getDocs, orderBy, query, where } from 'firebase/firestore';
+import { collection, getDoc, doc ,getDocs, orderBy, query, where, deleteDoc } from 'firebase/firestore';
 import moment from 'moment/moment';
 import { firebaseDb } from '../config/firebase';
 
@@ -16,6 +16,17 @@ export async function getPost(id) {
     }
   } catch (error) {
     console.error('Error getting post:', error);
+    throw error;
+  }
+}
+
+export async function deletePost(id) {
+  try {
+    const postRef = doc(collection(firebaseDb, 'posts'), id);
+    await deleteDoc(postRef);
+    return true; 
+  } catch (error) {
+    console.error('Error deleting post:', error);
     throw error;
   }
 }
