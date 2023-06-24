@@ -12,6 +12,7 @@ const PostInputFile = ({...props}) => {
             id="file-input"
             type="file"
             className={styles.postFileInput}
+            accept='image/.png,.jpg,.gif,.jpeg,.webp'
             {...props}
         />
     </>

@@ -44,7 +44,7 @@
             border-radius: 50%;
             position: relative;
             overflow: hidden;
-            img {
+            .profileHeaderPhoto {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -52,6 +52,10 @@
                 height: 100%;
                 -o-object-fit: cover;
                    object-fit: cover;
+                cursor: pointer;
+                &:hover {
+                    opacity: .8;
+                }
             }
         }
     

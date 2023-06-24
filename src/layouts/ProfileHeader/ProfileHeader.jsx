@@ -1,17 +1,24 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import styles from './ProfileHeader.module.scss'
 import MediumButton from '../../components/Button/MediumButton'
 import { ModalContext } from '../../context/ModalContext'
 import defaultPhoto from '../../assets/default-avatar.jpg'
+import ModalImagePreview from '../../components/Modal/ModalImagePreview'
 
 const ProfileHeader = ({name,src,username,following,followers,likes,description,profileLogged,isFollowing,handleFollow}) => {
   const {modalSettings} = useContext(ModalContext);
+  const [showImageModal, setShowImageModal] = useState(false);
+
+  function handleViewProfilePhoto() {
+    setShowImageModal(true);
+  }
 
   return (
     <header className={styles.profileHeader}>
         <section className={styles.profileHeaderInfo}>
             <div className={styles.profileHeaderPhotoContainer}>
-                <img src={src ? src : defaultPhoto} alt="" />
+                <ModalImagePreview src={src ? src : defaultPhoto} show={showImageModal} setShowModal={setShowImageModal}/>
+                <img className={styles.profileHeaderPhoto} onClick={handleViewProfilePhoto} src={src ? src : defaultPhoto} alt="" />
             </div>
             <div className={styles.profileHeaderContent}>
                 <h2 className={styles.profileHeaderName}>{name}</h2>

@@ -9,7 +9,7 @@ import { UserContext } from '../../context/UserContext';
 import { firebaseDb, firebaseStorage } from '../../config/firebase';
 import { collection,addDoc, serverTimestamp, updateDoc, doc } from 'firebase/firestore';
 import EmojiPost from '../Emoji/EmojiPost';
-import { b64ToBlob } from '../../helper/file';
+import { b64ToBlob, getProfilePhotoById } from '../../helper/file';
 import { ref, uploadBytes } from 'firebase/storage';
 import ModalImagePreview from '../Modal/ModalImagePreview';
 
@@ -23,6 +23,15 @@ const PostBox = ({src,alt,placeholder,comment,maxLength,parentId,parentUserId,re
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedImageName, setSelectedImageName] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
+  const [profileImage,setProfileImage] = useState(null);
+
+  useEffect(()=>{
+    async function fetchProfilePhoto() {
+      const profilePhotoUrl = await getProfilePhotoById(profileInfo?.id)
+      setProfileImage(profilePhotoUrl);
+    }
+    fetchProfilePhoto();
+  },[profileInfo?.id])
 
   const mutation = useMutation({
     mutationFn: async (formData) => {
@@ -108,7 +117,7 @@ return (
         <div className={styles.postBoxContainer}>
             <div className={styles.postBoxFieldContainer}>
                 <Link className={styles.postProfilePicture}>
-                    <img src={src} alt={alt} />
+                    <img src={profileImage ? profileImage : src} alt={alt} />
                 </Link>
                 <div className={styles.postBoxField}>
                     <textarea ref={postFieldRef} {...register('post')} onInput={handleTypePost} value={postFieldValue} maxLength={maxCharacters} className="scrollbarPrimary" placeholder={placeholder}></textarea>
