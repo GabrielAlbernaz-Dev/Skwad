@@ -68,3 +68,38 @@
         max-width: 30rem;
     }
 }
+
+.authGroupControl {
+    align-items: center;
+    display: flex;
+    width: 100%;
+    border-bottom: 2px solid $gray;
+    border-radius: 0px 0px 8px 8px;
+    .authIconControl {
+        display: flex;
+        align-items: center;
+        border-radius: 8px 0 0 8px;
+        color: $gray;
+        cursor: pointer;
+        padding: 1rem;
+        font-size: 2rem;
+        height: 3rem;
+        transition: .2s;
+    }
+
+    .authControl {
+        background: none;
+        border: none;
+        color: $gray;
+        flex: 2 1;
+        font-size: 2rem;
+        padding:2rem 1rem;
+        height: 3rem;
+        font-weight: 600;
+        outline: none;
+        &:focus {
+            color: $light;
+        }
+    }
+    
+}

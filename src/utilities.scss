@@ -124,6 +124,13 @@
     font-weight:600; 
 }
 
+.success-message {
+    font-size: 1.8rem;
+    margin: 2rem 0;
+    color: $success;
+    font-weight:600; 
+}
+
 .has-image {
     background: transparent!important;
     border: 2px solid $primary;

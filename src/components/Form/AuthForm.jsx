@@ -7,7 +7,6 @@ import { AiOutlineMail,AiOutlineUser } from 'react-icons/ai'
 import { BsKey } from 'react-icons/bs'
 import { useForm } from 'react-hook-form'
 import { Link } from 'react-router-dom'
-import { DevTool } from '@hookform/devtools';
 import { useMutation } from '@tanstack/react-query';
 import '../../utilities.scss';
 import { UserContext } from '../../context/UserContext';
@@ -24,7 +23,7 @@ const AuthForm = ({isRegister,title,subtitle}) => {
         username:false
     });
     
-    const {register,handleSubmit,control} = useForm();
+    const {register,handleSubmit} = useForm();
     const mutation = useMutation(async(formData) => {
         if (isRegister) {
             const { user } = await createUserWithEmailAndPassword(firebaseAuth, formData.email, formData.password);
@@ -125,10 +124,14 @@ const AuthForm = ({isRegister,title,subtitle}) => {
                     ''
                 }
                 <MediumButton type="submit" primary={true} text={isRegister ? 'Register' : 'Login'}/>
-                {isRegister ? <Link className={formStyles.authRedirectLink} to="/auth/login">Already have an account? Sign in now</Link> : <Link className={formStyles.authRedirectLink} to="/auth/register">You does not have an account? Register here</Link>}
+                {isRegister ? <Link className={formStyles.authRedirectLink} to="/auth/login">Already have an account? Sign in now</Link> :
+                <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                    <Link className={formStyles.authRedirectLink} to="/auth/register">You does not have an account? Register here.</Link>
+                    <Link className={formStyles.authRedirectLink} to="/auth/forgot-password">Forgotten your password? Change it here.</Link>
+                </div>
+                }
                 {mutation.isError && <p className="error-message">{mutation.error.message.replace('Firebase:','').trim('')}</p>}
             </form>
-            <DevTool control={control}/>
         </>
     )
 }

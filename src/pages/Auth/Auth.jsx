@@ -5,6 +5,7 @@ import Login from './Login';
 import Register from './Register';
 import Brand from '../../components/Brand/Brand';
 import styles from './Auth.module.scss';
+import ForgotPassword from './ForgotPassword';
 
 const Auth = () => {
   const {auth} = useContext(UserContext);
@@ -16,6 +17,7 @@ const Auth = () => {
       <Routes>
         <Route path="/login" element={<Login/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
       </Routes>
     </>
   )

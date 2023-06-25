@@ -1,4 +1,4 @@
-import { updateEmail, updatePassword } from 'firebase/auth';
+import { confirmPasswordReset, sendPasswordResetEmail, updateEmail, updatePassword } from 'firebase/auth';
 import { firebaseAuth } from '../config/firebase';
 
 export async function changeEmailAndPassword(id, newEmail, newPassword) {
@@ -24,5 +24,13 @@ export async function changeEmailAndPassword(id, newEmail, newPassword) {
   } catch (error) {
     console.error('Error updating email and password:', error);
     throw new Error('Failed to update email and password');
+  }
+}
+
+export async function sendEmailChangePassword(email) {
+  try {
+    await sendPasswordResetEmail(firebaseAuth, email);
+  } catch (error) {
+    throw new Error(error);
   }
 }

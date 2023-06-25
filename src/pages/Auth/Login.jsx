@@ -9,7 +9,7 @@ const Login = () => {
   return (
     <section className={styles.authFormContainer}>
       <Head title="Login" description="Login page"/>
-      <AuthForm title="Sign In with your account" subtitle="Lorem ipsum dolor sit, amet consectetur dolor sit, amet."/>
+      <AuthForm title="Sign In with your account" subtitle="Connect and enjoy all the features of skwad"/>
       <img className={styles.authLoginImage} src={heroLogin} alt="" />
     </section>
   )
