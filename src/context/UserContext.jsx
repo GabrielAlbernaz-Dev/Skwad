@@ -15,7 +15,7 @@ export const UserStorage = ({children}) => {
   useEffect(() => {
     firebaseAuth.onAuthStateChanged(async (user) => {
       if (user) {
-        login(user);
+        await login(user);
         const profileQuery = query(collection(firebaseDb, "profileInfo"), where("userId", "==", user.uid));
         const profileDocs = await getDocs(profileQuery);
         if (!profileDocs.empty) {
@@ -34,7 +34,7 @@ export const UserStorage = ({children}) => {
         setProfileInfo(null);
       }
     });
-  }, []);
+  }, [user]);
 
   function login(user) {
     setUser(user);
