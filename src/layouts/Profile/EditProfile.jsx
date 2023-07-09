@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import styles from './Profile.module.scss';
 import { ModalContext } from '../../context/ModalContext';
@@ -20,13 +20,25 @@ const EditProfile = () => {
   const {profileInfo} = useContext(UserContext);
   const { register, handleSubmit, watch,reset, formState: { errors } } = useForm();
   const [isLoading,setIsLoading] = useState(false);
+  const [isEmpty,setIsEmpty] = useState(false);
   const profileBioField = useRef(null);
   const profileBioValue = watch('bio','');
   const maxCharacters = 150;
   const password = watch('password');
   const [selectedImage, setSelectedImage] = useState(null);
 
+  useEffect(() => {
+    const isNotEmpty = Object.values(watch()).some(value => value !== '');
+    if(isNotEmpty) setIsEmpty(false);
+  },[watch()]);
+
   async function onSubmit(data) {
+    const isEmpty = Object.values(data).some(value => value === '');
+    if(isEmpty) {
+      console.log(watch())
+      setIsEmpty(true);
+      return
+    }
     setIsLoading(true);
     const { email, password, name, bio } = data;
     const profileId = profileInfo?.id;
@@ -127,6 +139,7 @@ const EditProfile = () => {
         <MediumButton onClick={modalSettings.closeModal} style={{ border: '1px solid #ccc' }} text="Cancel" />
         <MediumButton primary={true} type="submit" text={isLoading ? 'Sending...' : 'Save'} disabled={isLoading} />
       </div>
+      {isEmpty && <p className="error-message">All fields are empty, please fill in some field to save the edit</p>}
       {errors.password && <p className="error-message">Password is required</p>}
       {errors.confirmPassword && <p className="error-message">{errors.confirmPassword.message}</p>}
     </form>

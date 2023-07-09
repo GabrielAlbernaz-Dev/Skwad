@@ -70,7 +70,7 @@ const Profile = () => {
       }
     }
     fetchProfileData();
-  }, [id]);
+  }, [id,followingProfile]);
 
   const mutationFollows = useMutation({
     mutationFn: async () => {
