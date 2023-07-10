@@ -33,9 +33,8 @@ const EditProfile = () => {
   },[watch()]);
 
   async function onSubmit(data) {
-    const isEmpty = Object.values(data).some(value => value === '');
+    const isEmpty = Object.values(data).every(value => value === '') && !selectedImage;
     if(isEmpty) {
-      console.log(watch())
       setIsEmpty(true);
       return
     }
