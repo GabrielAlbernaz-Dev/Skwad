@@ -62,7 +62,6 @@ const EditProfile = () => {
         await uploadBytes(storageRef, imageBlob);
       }
     } catch (error) {
-      console.error('Error submitting profile data:', error);
       setSubmitError(true);
     } finally {
       setIsLoading(false);
